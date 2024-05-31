@@ -22,9 +22,9 @@ namespace SharlesPlants
         public override List<Descriptor> GetDescriptors(GameObject go)
         {
             List<Descriptor> descriptors = base.GetDescriptors(go);
-            string desc = "Matures below " + GameUtil.GetFormattedTemperature(highTransition);
+            string desc = string.Format(STRINGS.MISC.MATURESBELOW, GameUtil.GetFormattedTemperature(highTransition));
             descriptors.Add(new Descriptor(desc, desc, Descriptor.DescriptorType.Effect, false));
-            desc = "Flourishes below " + GameUtil.GetFormattedTemperature(lowTransition);
+            desc = string.Format(STRINGS.MISC.FLOURISHESBELOW, GameUtil.GetFormattedTemperature(lowTransition));
             descriptors.Add(new Descriptor(desc, desc, Descriptor.DescriptorType.Effect, false));
             return descriptors;
         }

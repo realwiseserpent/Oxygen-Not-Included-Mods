@@ -16,7 +16,7 @@ namespace SharlesPlants
             SimHashes element = Grid.Element[cell].id;
 
             if (temperature > requiredTemperature && reactiveElements.Contains(element))
-                    return Condition.Flourishing;
+                return Condition.Flourishing;
             if (temperature > requiredTemperature || reactiveElements.Contains(element))
                 return Condition.Mature;
             return Condition.Juvenile;
@@ -25,7 +25,7 @@ namespace SharlesPlants
         public override List<Descriptor> GetDescriptors(GameObject go)
         {
             List<Descriptor> descriptors = base.GetDescriptors(go);
-            string desc = "Reacts above " + GameUtil.GetFormattedTemperature(requiredTemperature) + " with:";
+            string desc = string.Format(STRINGS.MISC.REACTSABOVEWITH, GameUtil.GetFormattedTemperature(requiredTemperature));
             foreach (SimHashes hash in reactiveElements)
                 desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
             descriptors.Add(new Descriptor(desc, desc, Descriptor.DescriptorType.Effect, false));

@@ -25,11 +25,11 @@ namespace SharlesPlants
         public override List<Descriptor> GetDescriptors(GameObject go)
         {
             List<Descriptor> descriptors = base.GetDescriptors(go);
-            string desc = "Flourishes above " + GameUtil.GetFormattedTemperature(preferredTemperature) + " in:";
+            string desc = string.Format(STRINGS.MISC.FLOURISHESABOVEIN, GameUtil.GetFormattedTemperature(preferredTemperature));
             foreach (SimHashes hash in preferredElements)
                 desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
             descriptors.Add(new Descriptor(desc, desc, Descriptor.DescriptorType.Effect, false));
-            desc = "Tolerates: ";
+            desc = STRINGS.MISC.TOLERATES;
             foreach (SimHashes hash in toleratedElements)
                 desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
             descriptors.Add(new Descriptor(desc, desc, Descriptor.DescriptorType.Effect, false));

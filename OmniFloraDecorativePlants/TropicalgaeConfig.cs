@@ -1,56 +1,58 @@
 ﻿using UnityEngine;
-using STRINGS;
 using static SharlesPlants.SharlesPlantsTuning;
 using System.Collections.Generic;
 
 namespace SharlesPlants
 {
-	public class TropicalgaeConfig : IEntityConfig
-	{
-		public const string Id = "Tropicalgae";
-		public const string Name = "Tropicalgae";
-		public static string Description = "Many consider this plant to be an unsightly nuisance, but it provides shelter and food for aquatic life.";
-		public static string DomesticatedDescription = Description;
+    public class TropicalgaeConfig : IEntityConfig
+    {
+        public const string Id = "Tropicalgae";
+        public const string SeedId = Id + "Seed";
 
-		public const string SeedId = Id + "Seed";
-		public const string SeedName = Name + " Seed";
-		public static string SeedDescription = $"The seed bulb of a {UI.FormatAsLink(Name, Id)}.";
+        public static PlantTuning tuning = TropicalgaeTuning;
 
-		public static PlantTuning tuning = TropicalgaeTuning;
+        public string[] GetDlcIds()
+        {
+            return SupportedVersions;
+        }
 
-		public string[] GetDlcIds()
-		{
-			return SupportedVersions;
-		}
+        public GameObject CreatePrefab()
+        {
+            SimHashes[] preferredElements =
+                {
+                    SimHashes.DirtyWater,
+                };
+            SimHashes[] toleratedElements =
+                {
+                    SimHashes.Water,
+                    SimHashes.SaltWater,
+                    SimHashes.Brine,
+                };
+            string desc = STRINGS.PLANTS.TROPICALGAE.DESC;
 
-		public GameObject CreatePrefab()
-		{
-			var plantEntityTemplate = BaseSharlesPlantConfig.BaseSharlesPlant<WaterPlant>(Id, Name, Description, SeedId, SeedName, SeedDescription, tuning, false);
+            var plantEntityTemplate = BaseSharlesPlantConfig.BaseSharlesPlant<WaterPlant>(Id,
+                STRINGS.PLANTS.TROPICALGAE.NAME,
+                desc,
+                SeedId,
+                STRINGS.SEEDS.TROPICALGAE.SEED_NAME,
+                STRINGS.SEEDS.TROPICALGAE.SEED_DESC,
+                tuning, canDrown: false);
 
-			var waterPlant = plantEntityTemplate.AddOrGet<WaterPlant>();
-			waterPlant.preferredTemperature = tuning.transitionTemp;
-			SimHashes[] preferredElements =
-				{
-					SimHashes.DirtyWater,
-				};
-			waterPlant.preferredElements = new List<SimHashes>(preferredElements);
-			SimHashes[] toleratedElements =
-				{
-					SimHashes.Water,
-					SimHashes.SaltWater,
-					SimHashes.Brine,
-				};
-			waterPlant.toleratedElements = new List<SimHashes>(toleratedElements);
+            var waterPlant = plantEntityTemplate.AddOrGet<WaterPlant>();
+            waterPlant.preferredTemperature = tuning.transitionTemp;
 
-			return plantEntityTemplate;
-		}
+            waterPlant.preferredElements = new List<SimHashes>(preferredElements);
+            waterPlant.toleratedElements = new List<SimHashes>(toleratedElements);
 
-		public void OnPrefabInit(GameObject inst)
-		{
-		}
+            return plantEntityTemplate;
+        }
 
-		public void OnSpawn(GameObject inst)
-		{
-		}
-	}
+        public void OnPrefabInit(GameObject inst)
+        {
+        }
+
+        public void OnSpawn(GameObject inst)
+        {
+        }
+    }
 }

@@ -1,56 +1,59 @@
 ﻿using UnityEngine;
-using STRINGS;
 using static SharlesPlants.SharlesPlantsTuning;
 using System.Collections.Generic;
 
 namespace SharlesPlants
 {
-	public class ShlurpCoralConfig : IEntityConfig
-	{
-		public const string Id = "ShlurpCoral";
-		public const string Name = "Shlurp Coral";
-		public static string Description = $"The result of genetic experimentation on {UI.FormatAsLink("Wheezeworts", "ColdBreather")}, this plant is actually a colony of symbiotic creatures.";
-		public static string DomesticatedDescription = Description;
+    public class ShlurpCoralConfig : IEntityConfig
+    {
+        public const string Id = "ShlurpCoral";
+        public const string SeedId = Id + "Polyp";
 
-		public const string SeedId = Id + "Polyp";
-		public const string SeedName = Name + " Polyp";
-		public static string SeedDescription = $"The polyp of a {UI.FormatAsLink(Name, Id)}.";
+        public static PlantTuning tuning = ShlurpCoralTuning;
 
-		public static PlantTuning tuning = ShlurpCoralTuning;
+        public string[] GetDlcIds()
+        {
+            return SupportedVersions;
+        }
 
-		public string[] GetDlcIds()
-		{
-			return SupportedVersions;
-		}
+        public GameObject CreatePrefab()
+        {
+            SimHashes[] preferredElements =
+                {
+                    SimHashes.SaltWater,
+                    SimHashes.Brine,
+               };
+            SimHashes[] toleratedElements =
+                {
+                    SimHashes.Water,
+                    SimHashes.DirtyWater,
+               };
 
-		public GameObject CreatePrefab()
-		{
-			var plantEntityTemplate = BaseSharlesPlantConfig.BaseSharlesPlant<WaterPlant>(Id, Name, Description, SeedId, SeedName, SeedDescription, tuning, false);
+            string desc = STRINGS.PLANTS.SHLURPCORAL.DESC;
 
-			var waterPlant = plantEntityTemplate.AddOrGet<WaterPlant>();
-			waterPlant.preferredTemperature = tuning.transitionTemp;
-			SimHashes[] preferredElements =
-				{
-					SimHashes.SaltWater,
-					SimHashes.Brine,
-				};
-			waterPlant.preferredElements = new List<SimHashes>(preferredElements);
-			SimHashes[] toleratedElements =
-				{
-					SimHashes.Water,
-					SimHashes.DirtyWater,
-				};
-			waterPlant.toleratedElements = new List<SimHashes>(toleratedElements);
+            var plantEntityTemplate = BaseSharlesPlantConfig.BaseSharlesPlant<WaterPlant>(Id,
+                STRINGS.PLANTS.SHLURPCORAL.NAME,
+                desc,
+                SeedId,
+                STRINGS.SEEDS.SHLURPCORAL.SEED_NAME,
+                STRINGS.SEEDS.SHLURPCORAL.SEED_DESC,
+                tuning, canDrown: false);
 
-			return plantEntityTemplate;
-		}
+            var waterPlant = plantEntityTemplate.AddOrGet<WaterPlant>();
+            waterPlant.preferredTemperature = tuning.transitionTemp;
 
-		public void OnPrefabInit(GameObject inst)
-		{
-		}
+            waterPlant.preferredElements = new List<SimHashes>(preferredElements);
+            waterPlant.toleratedElements = new List<SimHashes>(toleratedElements);
 
-		public void OnSpawn(GameObject inst)
-		{
-		}
-	}
+            return plantEntityTemplate;
+        }
+
+        public void OnPrefabInit(GameObject inst)
+        {
+        }
+
+        public void OnSpawn(GameObject inst)
+        {
+        }
+    }
 }
