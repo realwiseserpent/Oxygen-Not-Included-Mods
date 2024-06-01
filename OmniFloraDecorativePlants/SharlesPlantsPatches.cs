@@ -38,13 +38,11 @@ namespace SharlesPlants
     {
         public static Dictionary<string, PlantTuning> PlantDictionary;
 
-        public class Mod_OnLoad : KMod.UserMod2
+        public static void InitCropDictionary()
         {
-            public override void OnLoad(Harmony harmony)
-            {
-                Log("Loading plants", true);
+            Log("Loading plants", true);
 
-                PlantDictionary = new Dictionary<string, PlantTuning>()
+            PlantDictionary = new Dictionary<string, PlantTuning>()
                 {
                     { PricklyLotusConfig.Id, PricklyLotusTuning },
                     { FrostBlossomConfig.Id, FrostBlossomTuning },
@@ -55,9 +53,6 @@ namespace SharlesPlants
                     { TropicalgaeConfig.Id, TropicalgaeTuning },
                     { ShlurpCoralConfig.Id, ShlurpCoralTuning },
                 };
-
-                base.OnLoad(harmony);
-            }
         }
 
         // Reveal map on startup (Debug only)

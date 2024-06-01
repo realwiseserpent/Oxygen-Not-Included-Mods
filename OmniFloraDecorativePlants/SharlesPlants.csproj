@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,8 +46,16 @@
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\OxygenNotIncluded\OxygenNotIncluded_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\IIS\Microsoft Web Deploy V3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PLib, Version=4.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PLib.4.13.0\lib\net471\PLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,10 +76,13 @@
     <Compile Include="ColdLovingPlant.cs" />
     <Compile Include="FrostBlossomConfig.cs" />
     <Compile Include="IcyShroomConfig.cs" />
+    <Compile Include="JsonSerializer.cs" />
+    <Compile Include="ModInfo.cs" />
     <Compile Include="MyrthRoseConfig.cs" />
     <Compile Include="ReactivePlant.cs" />
     <Compile Include="RustFernConfig.cs" />
     <Compile Include="BaseSharlesPlantConfig.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="SharlesPlantsTuning.cs" />
     <Compile Include="SharlesPlants_Patches_Translation.cs" />
     <Compile Include="ShlurpCoralConfig.cs" />
@@ -82,11 +96,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WaterPlant.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)"
-copy "$(TargetPath)" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)"
-IF EXIST  "$(TargetDir)*.json" ( copy "$(TargetDir)*.json" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)" )
-IF EXIST  "$(TargetDir)*.txt" ( copy "$(TargetDir)*.txt" "%25HOMEPATH%25\Documents\Klei\OxygenNotIncluded\mods\dev\$(ProjectName)" )</PostBuildEvent>
+    <PostBuildEvent>IF exist "C:\Users\admin\Documents\Klei\OxygenNotIncluded\mods\1Dev\$(TargetName)" ( echo Mod Dir exists ) ELSE  ( mkdir "C:\Users\admin\Documents\Klei\OxygenNotIncluded\mods\1Dev\$(TargetName)" &amp;&amp; echo Mod Dir created)
+
+"$(ILMergeConsolePath)" /ndebug /out:"$(SolutionDir)\OmniFloraDecorativePlants\bin\Release\$(TargetName).dll" "$(SolutionDir)\OmniFloraDecorativePlants\bin\Release\$(TargetName).dll" "$(SolutionDir)\OmniFloraDecorativePlants\bin\Release\PLib.dll"  /targetplatform:v4,C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+
+xcopy /Y /R  /I /Q  /E "$(SolutionDir)\OmniFloraDecorativePlants\bin\Release\$(TargetName).dll" "C:\Users\admin\Documents\Klei\OxygenNotIncluded\mods\1Dev\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
+  </Target>
 </Project>
