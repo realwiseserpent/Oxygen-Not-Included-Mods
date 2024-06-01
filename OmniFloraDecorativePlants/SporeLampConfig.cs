@@ -28,6 +28,17 @@ namespace SharlesPlants
 
             string desc = STRINGS.PLANTS.SPORELAMP.DESC;
 
+            List<SimHashes> AdditionalElements = new List<SimHashes>()
+                {
+                    SimHashes.Helium,
+                    SimHashes.Syngas,
+                };
+            if (Settings.Instance.BaseSettings.ExtendedSporeLampGasList)
+            {
+                reactiveElements.AddRange(AdditionalElements);
+                tuning.safeElements = tuning.safeElements.Append(AdditionalElements.ToArray());
+            }
+
             var plantEntityTemplate = BaseSharlesPlantConfig.BaseSharlesPlant<ReactivePlant>(Id,
                 STRINGS.PLANTS.SPORELAMP.NAME,
                 desc,

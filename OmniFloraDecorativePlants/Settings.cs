@@ -32,9 +32,26 @@ namespace SharlesPlants
             _instance = POptions.ReadSettings<Settings>();
         }
 
+        [JsonProperty]
+        [Option("Additional Settings", category: "Additional Settings")]
+        public BasicSettings BaseSettings { get; set; }
+
         public Settings()
         {
+            BaseSettings = new BasicSettings();
+        }
 
+        [Serializable]
+        public class BasicSettings
+        {
+            [JsonProperty]
+            [Option("Spore Lamp Reactive Gases", "Do you want to extend list of Spore Lamp reactive gases?")]
+            public bool ExtendedSporeLampGasList { get; set; }
+
+            public BasicSettings()
+            {
+                ExtendedSporeLampGasList = false;
+            }
         }
     }
 }
