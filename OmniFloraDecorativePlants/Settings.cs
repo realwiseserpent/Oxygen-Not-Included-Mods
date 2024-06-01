@@ -34,7 +34,24 @@ namespace SharlesPlants
 
         public Settings()
         {
+            BaseSettings = new BasicSettings();
+        }
 
+        [JsonProperty]
+        [Option("Additional Settings", category: "Additional Settings")]
+        public BasicSettings BaseSettings { get; set; }
+
+        [Serializable]
+        public class BasicSettings
+        {
+            [JsonProperty]
+            [Option("Seeds spawn", "Do you want to spawn buries seeds?")]
+            public bool SeedsSpawn { get; set; }
+
+            public BasicSettings()
+            {
+                SeedsSpawn = false;
+            }
         }
     }
 }

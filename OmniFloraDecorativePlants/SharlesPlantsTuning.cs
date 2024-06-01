@@ -1,8 +1,7 @@
 ﻿using ProcGen;
 using System.Collections.Generic;
 using System.Linq;
-using Temperatures =  ProcGen.Temperature.Range;
-using static SharlesPlants.SharlesPlantsPatches;
+using Temperatures = ProcGen.Temperature.Range;
 
 namespace SharlesPlants
 {
@@ -42,6 +41,8 @@ namespace SharlesPlants
         public static EffectorValues MediumDecor = new EffectorValues() { amount = 40, radius = 5 };
         public static EffectorValues HighDecor = new EffectorValues() { amount = 70, radius = 6 };
         public static EffectorValues AmazingDecor = new EffectorValues() { amount = 100, radius = 7 };
+
+        public static MinMax seedDensity = new MinMax(0.005f, 0.01f);
 
         // Prickly Lotus tuning
         public static PlantTuning PricklyLotusTuning = new PlantTuning
@@ -84,6 +85,18 @@ namespace SharlesPlants
             spawnLocation = Mob.Location.Floor,
         };
 
+        public static SeedTuning PricklyLotusSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = new HashSet<string>(PricklyLotusTuning.biomes)
+            {
+            },
+            biomesExcluded = new HashSet<string>() {
+                BIOME_STRINGS.JUNGLE,
+                BIOME_STRINGS.MOO,
+            },
+        };
+
         // Frost Blossom tuning
         public static PlantTuning FrostBlossomTuning = new PlantTuning
         {
@@ -117,6 +130,15 @@ namespace SharlesPlants
                 BIOME_STRINGS.RADIOACTIVE,
             },
             spawnLocation = Mob.Location.Floor,
+        };
+
+        public static SeedTuning FrostBlossomSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = FrostBlossomTuning.biomes,
+            biomesExcluded = new HashSet<string>()
+            {
+            }
         };
 
         // Icy Shroom tuning
@@ -159,6 +181,15 @@ namespace SharlesPlants
             spawnLocation = Mob.Location.Floor,
         };
 
+        public static SeedTuning IcyShroomSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = new HashSet<string>()
+            {
+                BIOME_STRINGS.FROZEN,
+            },
+        };
+
         // Myrth Rose tuning
         public static PlantTuning MyrthRoseTuning = new PlantTuning
         {
@@ -197,6 +228,15 @@ namespace SharlesPlants
                 BIOME_STRINGS.WASTELAND,
             },
             spawnLocation = Mob.Location.Floor,
+        };
+
+        public static SeedTuning MyrthRoseSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = new HashSet<string>() {
+                BIOME_STRINGS.JUNGLE,
+                BIOME_STRINGS.WASTELAND,
+            },
         };
 
         // Rust Fern tuning
@@ -240,6 +280,16 @@ namespace SharlesPlants
             spawnLocation = Mob.Location.Floor,
         };
 
+        public static SeedTuning RustFernSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = new HashSet<string>() {
+                BIOME_STRINGS.RUST,
+                BIOME_STRINGS.BARREN,
+                "GraphiteCaves",
+            },
+        };
+
         // Spore Lamp tuning
         public static PlantTuning SporeLampTuning = new PlantTuning
         {
@@ -277,6 +327,16 @@ namespace SharlesPlants
                 BIOME_STRINGS.MOO,
             },
             spawnLocation = Mob.Location.Floor,
+        };
+
+        public static SeedTuning SporeLampSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = SporeLampTuning.biomes,
+            biomesExcluded = new HashSet<string>() {
+                BIOME_STRINGS.MARSH,
+                BIOME_STRINGS.MOO,
+            },
         };
 
         // Tropicalgae tuning
@@ -318,6 +378,15 @@ namespace SharlesPlants
             spawnLocation = Mob.Location.LiquidFloor,
         };
 
+        public static SeedTuning TropicalgaeSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = new HashSet<string>() {
+                BIOME_STRINGS.MARSH,
+                BIOME_STRINGS.AQUATIC,
+            },
+        };
+
         // Shlurp Coral tuning
         public static PlantTuning ShlurpCoralTuning = new PlantTuning
         {
@@ -354,6 +423,15 @@ namespace SharlesPlants
             spawnLocation = Mob.Location.LiquidFloor,
         };
 
+        public static SeedTuning ShlurpCoralSeedTuning = new SeedTuning
+        {
+            density = seedDensity,
+            biomes = ShlurpCoralTuning.biomes,
+            biomesExcluded = new HashSet<string>()
+            {
+            },
+        };
+
         public struct PlantTuning
         {
             public MinMax density;
@@ -378,6 +456,19 @@ namespace SharlesPlants
             public bool ValidBiome(SubWorld subworld, string biome)
             {
                 return biomeTemperatures.Contains(subworld.temperatureRange) && (biomesExcluded == null || !biomesExcluded.Any(b => biome.Contains(b))) && biomes.Any(b => biome.Contains(b));
+            }
+        }
+
+        public struct SeedTuning
+        {
+            public MinMax density;
+            public ISet<string> biomes;
+            public ISet<string> biomesExcluded;
+
+            // Check that current biome are appropriate for the plant seed
+            public bool ValidBiome(string biome)
+            {
+                return (biomesExcluded == null || !biomesExcluded.Any(b => biome.Contains(b))) && biomes.Any(b => biome.Contains(b));
             }
         }
     }

@@ -37,6 +37,7 @@ namespace SharlesPlants
     class SharlesPlantsPatches
     {
         public static Dictionary<string, PlantTuning> PlantDictionary;
+        public static Dictionary<string, SeedTuning> SeedDictionary;
 
         public static void InitCropDictionary()
         {
@@ -52,6 +53,17 @@ namespace SharlesPlants
                     { SporeLampConfig.Id, SporeLampTuning },
                     { TropicalgaeConfig.Id, TropicalgaeTuning },
                     { ShlurpCoralConfig.Id, ShlurpCoralTuning },
+                };
+            SeedDictionary = new Dictionary<string, SeedTuning>()
+                {
+                    { PricklyLotusConfig.SeedId, PricklyLotusSeedTuning },
+                    { FrostBlossomConfig.SeedId, FrostBlossomSeedTuning },
+                    { IcyShroomConfig.SeedId, IcyShroomSeedTuning },
+                    { MyrthRoseConfig.SeedId, MyrthRoseSeedTuning },
+                    { RustFernConfig.SeedId, RustFernSeedTuning },
+                    { SporeLampConfig.SeedId, SporeLampSeedTuning },
+                    { TropicalgaeConfig.SeedId, TropicalgaeSeedTuning },
+                    { ShlurpCoralConfig.SeedId, ShlurpCoralSeedTuning },
                 };
         }
 
@@ -130,8 +142,24 @@ namespace SharlesPlants
                     p.Property("width").SetValue(1);
                     p.Property("height").SetValue(1);
                     p.Property("density").SetValue(tuning.density);
+                    p.Property("selectMethod", null).SetValue(1);
                     mobs.Add(plantName, plant);
                 }
+                if (Settings.Instance.BaseSettings.SeedsSpawn)
+                    foreach (string seedName in SeedDictionary.Keys)
+                    {
+                        if (mobs.ContainsKey(seedName))
+                            continue;
+                        var tuning = SeedDictionary[seedName];
+                        Mob plant = new Mob(Mob.Location.Solid) { name = seedName };
+
+                        var p = Traverse.Create(plant);
+                        p.Property("width").SetValue(1);
+                        p.Property("height").SetValue(1);
+                        p.Property("density").SetValue(tuning.density);
+                        p.Property("selectMethod", null).SetValue(1);
+                        mobs.Add(seedName, plant);
+                    }
             }
         }
 
@@ -145,13 +173,21 @@ namespace SharlesPlants
 
                 foreach (var subworld in SettingsCache.subworlds.Values)
                     foreach (var biome in subworld.biomes)
+                    {
+                        if (biome.tags == null)
+                            Traverse.Create(biome).Property("tags").SetValue(new List<string>());
+
                         foreach (string plantName in PlantDictionary.Keys)
                             if (PlantDictionary[plantName].ValidBiome(subworld, biome.name))
-                            {
-                                if (biome.tags == null)
-                                    Traverse.Create(biome).Property("tags").SetValue(new List<string>());
-                                biome.tags.Add(plantName);
-                            }
+                                if (!biome.tags.Contains(plantName))
+                                    biome.tags.Add(plantName);
+
+                        if (Settings.Instance.BaseSettings.SeedsSpawn)
+                            foreach (string seedName in SeedDictionary.Keys)
+                                if (SeedDictionary[seedName].ValidBiome(biome.name))
+                                    if (!biome.tags.Contains(seedName))
+                                        biome.tags.Add(seedName);
+                    }
             }
         }
 
