@@ -34,6 +34,38 @@ namespace SharlesPlants
                 SWAMP = PREFIX + "Swamp",
                 WASTELAND = PREFIX + "Wasteland";
         }
+        public class EARTH_BIOME_STRINGS //Earth mod
+        {
+            public static string PREFIX = @"biomes/Earth/";
+            public static string
+                ASTHENOSPHERE = PREFIX + "Asthenosphere",
+                CORE = PREFIX + "Core",
+                MANTLE = PREFIX + "Mantle",
+                MANTLE2 = PREFIX + "Mantle2",
+                OCEAN = PREFIX + "Ocean",
+                SKY = PREFIX + "Sky",
+                SURFACE = PREFIX + "Surface";
+        }
+        public class BAATOR_BIOME_STRINGS //Baator mod
+        {
+            public static string PREFIX = @"biomes/";
+            public static string
+                SURFACECRAGS = PREFIX + "Baator_SurfaceCrags",
+                SHADOWFEL = PREFIX + "Baator_Shadowfel",
+                AVERNUS = PREFIX + "Baator_Avernus",
+                DIS = PREFIX + "Baator_Dis",
+                MINAUROS = PREFIX + "Baator_Minauros",
+                PHLEGETHOS = PREFIX + "Baator_Phlegethos",
+                STYGIA = PREFIX + "Baator_Stygia",
+                MALBOLGE = PREFIX + "Baator_Malbolge",
+                MALADOMINI = PREFIX + "Baator_Maladomini",
+                CANIA = PREFIX + "Baator_Cania",
+                NESSUS = PREFIX + "Baator_Nessus";
+        }
+        public class EMPTY_WORLDS_BIOME_STRINGS //EmptyWorlds mod
+        {
+            public static string CUSTOMFOREST = "CustomForest";
+        }
 
         public static EffectorValues WiltDecor = TUNING.DECOR.PENALTY.TIER3;
         public static EffectorValues LowDecor = new EffectorValues() { amount = 10, radius = 3 };
@@ -53,7 +85,7 @@ namespace SharlesPlants
             transitionLow = 303.15f,        //  30C
             transitionHigh = 323.15f,       //  50C
             warningHigh = 363.15f,          //  90C
-            lethalhigh = 393.15f,           // 120C
+            lethalhigh = 403.15f,           // 130C
             defaultTemperature = 298.15f,   //  25C
             juvenileDecor = StandardDecor,
             matureDecor = MediumDecor,
@@ -80,7 +112,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.OIL,
                 BIOME_STRINGS.MOO,
                 BIOME_STRINGS.WASTELAND,
-                "Desert",
+                "Desert", //SEDIMENTARY desert + TestDesert from RollerSnake
+                BAATOR_BIOME_STRINGS.NESSUS,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -88,12 +121,13 @@ namespace SharlesPlants
         public static SeedTuning PricklyLotusSeedTuning = new SeedTuning
         {
             density = seedDensity,
-            biomes = new HashSet<string>(PricklyLotusTuning.biomes)
-            {
+            biomes = new HashSet<string>(PricklyLotusTuning.biomes) {
+                BAATOR_BIOME_STRINGS.MALADOMINI,
+                BAATOR_BIOME_STRINGS.MALBOLGE,
             },
             biomesExcluded = new HashSet<string>() {
-                BIOME_STRINGS.JUNGLE,
                 BIOME_STRINGS.MOO,
+                BAATOR_BIOME_STRINGS.NESSUS
             },
         };
 
@@ -101,7 +135,7 @@ namespace SharlesPlants
         public static PlantTuning FrostBlossomTuning = new PlantTuning
         {
             density = new MinMax(0.15f, 0.25f),
-            lethalLow = 183.15f,            // -90C
+            lethalLow = 173.15f,            // -100C
             warningLow = 213.15f,           // -60C
             transitionLow = 253.15f,        // -20C
             transitionHigh = 273.15f,       //   0C
@@ -128,6 +162,8 @@ namespace SharlesPlants
             {
                 BIOME_STRINGS.FROZEN,
                 BIOME_STRINGS.RADIOACTIVE,
+                BAATOR_BIOME_STRINGS.STYGIA,
+                BAATOR_BIOME_STRINGS.CANIA,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -136,8 +172,8 @@ namespace SharlesPlants
         {
             density = seedDensity,
             biomes = FrostBlossomTuning.biomes,
-            biomesExcluded = new HashSet<string>()
-            {
+            biomesExcluded = new HashSet<string>() {
+                BAATOR_BIOME_STRINGS.STYGIA
             }
         };
 
@@ -177,6 +213,11 @@ namespace SharlesPlants
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.OCEAN,
                 BIOME_STRINGS.SWAMP,
+                BAATOR_BIOME_STRINGS.STYGIA,
+                BAATOR_BIOME_STRINGS.CANIA,
+                EARTH_BIOME_STRINGS.ASTHENOSPHERE,
+                EARTH_BIOME_STRINGS.SURFACE,
+                EMPTY_WORLDS_BIOME_STRINGS.CUSTOMFOREST,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -184,9 +225,9 @@ namespace SharlesPlants
         public static SeedTuning IcyShroomSeedTuning = new SeedTuning
         {
             density = seedDensity,
-            biomes = new HashSet<string>()
-            {
+            biomes = new HashSet<string>() {
                 BIOME_STRINGS.FROZEN,
+                BAATOR_BIOME_STRINGS.CANIA,
             },
         };
 
@@ -199,7 +240,7 @@ namespace SharlesPlants
             transitionLow = 295.15f,        //  22C
             transitionHigh = 309.15f,       //  36C
             warningHigh = 328.15f,          //  55C
-            lethalhigh = 348.15f,           //  75C
+            lethalhigh = 363.15f,           //  90C
             defaultTemperature = 293.15f,   //  20C
             juvenileDecor = StandardDecor,
             matureDecor = MediumDecor,
@@ -214,9 +255,11 @@ namespace SharlesPlants
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
+                Temperatures.Mild,
                 Temperatures.Room,
                 Temperatures.HumanWarm,
                 Temperatures.HumanHot,
+                Temperatures.Hot,
             },
             biomes = new HashSet<string>()
             {
@@ -226,6 +269,12 @@ namespace SharlesPlants
                 BIOME_STRINGS.JUNGLE,
                 BIOME_STRINGS.SWAMP,
                 BIOME_STRINGS.WASTELAND,
+                "Desert", //SEDIMENTARY desert + TestDesert from RollerSnake
+                BAATOR_BIOME_STRINGS.NESSUS,
+                BAATOR_BIOME_STRINGS.DIS,
+                EARTH_BIOME_STRINGS.ASTHENOSPHERE,
+                EARTH_BIOME_STRINGS.SURFACE,
+                EMPTY_WORLDS_BIOME_STRINGS.CUSTOMFOREST,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -235,7 +284,11 @@ namespace SharlesPlants
             density = seedDensity,
             biomes = new HashSet<string>() {
                 BIOME_STRINGS.JUNGLE,
+                "Desert",
                 BIOME_STRINGS.WASTELAND,
+                EARTH_BIOME_STRINGS.ASTHENOSPHERE,
+                BAATOR_BIOME_STRINGS.NESSUS,
+                BAATOR_BIOME_STRINGS.DIS,
             },
         };
 
@@ -243,7 +296,7 @@ namespace SharlesPlants
         public static PlantTuning RustFernTuning = new PlantTuning
         {
             density = new MinMax(0.13f, 0.20f),
-            lethalLow = 243.15f,            // -30C
+            lethalLow = 223.15f,            // -50C
             warningLow = 258.15f,           // -15C
             transitionLow = 307.15f,        //  34C
             transitionHigh = 321.15f,       //  48C
@@ -262,6 +315,7 @@ namespace SharlesPlants
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
+                Temperatures.Chilly,
                 Temperatures.Cool,
                 Temperatures.Mild,
                 Temperatures.Room,
@@ -276,6 +330,10 @@ namespace SharlesPlants
                 BIOME_STRINGS.RADIOACTIVE,
                 BIOME_STRINGS.WASTELAND,
                 "GraphiteCaves",
+                BAATOR_BIOME_STRINGS.SHADOWFEL,
+                BAATOR_BIOME_STRINGS.STYGIA,
+                EARTH_BIOME_STRINGS.ASTHENOSPHERE,
+                EARTH_BIOME_STRINGS.SURFACE,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -287,6 +345,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.RUST,
                 BIOME_STRINGS.BARREN,
                 "GraphiteCaves",
+                EARTH_BIOME_STRINGS.SURFACE,
+                BAATOR_BIOME_STRINGS.SHADOWFEL,
             },
         };
 
@@ -298,7 +358,7 @@ namespace SharlesPlants
             warningLow = 278.15f,           //   5C
             transitionTemp = 301.15f,       //  28C
             warningHigh = 361.15f,          //  88C
-            lethalhigh = 383.15f,           // 110C
+            lethalhigh = 403.15f,           // 130C
             defaultTemperature = 298.15f,   //  25C
             juvenileDecor = StandardDecor,
             matureDecor = MediumDecor,
@@ -325,6 +385,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.SWAMP,
                 BIOME_STRINGS.MOO,
+                BAATOR_BIOME_STRINGS.AVERNUS,
+                EARTH_BIOME_STRINGS.MANTLE,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -336,6 +398,7 @@ namespace SharlesPlants
             biomesExcluded = new HashSet<string>() {
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.MOO,
+                EARTH_BIOME_STRINGS.MANTLE2,
             },
         };
 
@@ -343,7 +406,7 @@ namespace SharlesPlants
         public static PlantTuning TropicalgaeTuning = new PlantTuning
         {
             density = new MinMax(0.18f, 0.28f),
-            lethalLow = 263.15f,            // -10C
+            lethalLow = 253.15f,            // -20C
             warningLow = 283.15f,           //  10C
             transitionTemp = 303.15f,       //  30C
             warningHigh = 328.15f,          //  55C
@@ -360,10 +423,12 @@ namespace SharlesPlants
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
+                Temperatures.Cool,
                 Temperatures.Mild,
                 Temperatures.Room,
                 Temperatures.HumanWarm,
                 Temperatures.HumanHot,
+                Temperatures.Hot,
             },
             biomes = new HashSet<string>()
             {
@@ -374,6 +439,12 @@ namespace SharlesPlants
                 BIOME_STRINGS.AQUATIC,
                 BIOME_STRINGS.SWAMP,
                 BIOME_STRINGS.WASTELAND,
+                BAATOR_BIOME_STRINGS.MINAUROS,
+                BAATOR_BIOME_STRINGS.AVERNUS,
+                EARTH_BIOME_STRINGS.ASTHENOSPHERE,
+                EARTH_BIOME_STRINGS.SURFACE,
+                EARTH_BIOME_STRINGS.OCEAN,
+                EMPTY_WORLDS_BIOME_STRINGS.CUSTOMFOREST,
             },
             spawnLocation = Mob.Location.LiquidFloor,
         };
@@ -384,6 +455,8 @@ namespace SharlesPlants
             biomes = new HashSet<string>() {
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.AQUATIC,
+                BAATOR_BIOME_STRINGS.MINAUROS,
+                EARTH_BIOME_STRINGS.OCEAN,
             },
         };
 
@@ -391,7 +464,7 @@ namespace SharlesPlants
         public static PlantTuning ShlurpCoralTuning = new PlantTuning
         {
             density = new MinMax(0.18f, 0.28f),
-            lethalLow = 263.15f,            // -10C
+            lethalLow = 253.15f,            // -20C
             warningLow = 288.15f,           //  15C
             transitionTemp = 305.15f,       //  32C
             warningHigh = 322.15f,          //  49C
@@ -410,15 +483,21 @@ namespace SharlesPlants
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
+                Temperatures.Cool,
                 Temperatures.Mild,
                 Temperatures.Room,
                 Temperatures.HumanWarm,
                 Temperatures.HumanHot,
+                Temperatures.Hot,
             },
             biomes = new HashSet<string>()
             {
                 BIOME_STRINGS.OCEAN,
                 BIOME_STRINGS.AQUATIC,
+                BAATOR_BIOME_STRINGS.MINAUROS,
+                BAATOR_BIOME_STRINGS.STYGIA,
+                BAATOR_BIOME_STRINGS.AVERNUS,
+                EARTH_BIOME_STRINGS.OCEAN,
             },
             spawnLocation = Mob.Location.LiquidFloor,
         };
@@ -427,8 +506,9 @@ namespace SharlesPlants
         {
             density = seedDensity,
             biomes = ShlurpCoralTuning.biomes,
-            biomesExcluded = new HashSet<string>()
-            {
+            biomesExcluded = new HashSet<string>() {
+                BAATOR_BIOME_STRINGS.MINAUROS,
+                BAATOR_BIOME_STRINGS.AVERNUS,
             },
         };
 
