@@ -1,0 +1,250 @@
+msgid ""
+msgstr ""
+"Application: Oxygen Not Included"
+"POT Version: 2.0"
+
+#. SharlesPlants.STRINGS.CODEX.SUBTITLE
+msgctxt "SharlesPlants.STRINGS.CODEX.SUBTITLE"
+msgid "Decorative Plant"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.FLOURISHESABOVE
+msgctxt "SharlesPlants.STRINGS.MISC.FLOURISHESABOVE"
+msgid "Flourishes above {0}"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.FLOURISHESABOVEIN
+msgctxt "SharlesPlants.STRINGS.MISC.FLOURISHESABOVEIN"
+msgid "Flourishes above {0} in:"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.FLOURISHESBELOW
+msgctxt "SharlesPlants.STRINGS.MISC.FLOURISHESBELOW"
+msgid "Flourishes below {0}"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.MATURESABOVE
+msgctxt "SharlesPlants.STRINGS.MISC.MATURESABOVE"
+msgid "Matures above {0}"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.MATURESBELOW
+msgctxt "SharlesPlants.STRINGS.MISC.MATURESBELOW"
+msgid "Matures below {0}"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.REACTSABOVEWITH
+msgctxt "SharlesPlants.STRINGS.MISC.REACTSABOVEWITH"
+msgid "Reacts above {0} with:"
+msgstr ""
+
+#. SharlesPlants.STRINGS.MISC.TOLERATES
+msgctxt "SharlesPlants.STRINGS.MISC.TOLERATES"
+msgid "Tolerates: "
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.DESC"
+msgid "A plant with exquisite petals that thrives in the chilliest of environments."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.DOMESTICATED_DESC"
+msgid "A plant with exquisite petals that thrives in the chilliest of environments."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.FROSTBLOSSOM.NAME"
+msgid "<link=\"FROSTBLOSSOM\">Frost Blossom</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.ICYSHROOM.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.ICYSHROOM.DESC"
+msgid "An adorable little toadstool with a great affection for frigid conditions."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.ICYSHROOM.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.ICYSHROOM.DOMESTICATED_DESC"
+msgid "An adorable little toadstool with a great affection for frigid conditions."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.ICYSHROOM.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.ICYSHROOM.NAME"
+msgid "<link=\"ICYSHROOM\">Icy Shroom</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.MYRTHROSE.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.MYRTHROSE.DESC"
+msgid "A royalty among plants, prized for its alluring colors that fully emerge in warm climates."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.MYRTHROSE.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.MYRTHROSE.DOMESTICATED_DESC"
+msgid "A royalty among plants, prized for its alluring colors that fully emerge in warm climates."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.MYRTHROSE.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.MYRTHROSE.NAME"
+msgid "<link=\"MYRTHROSE\">Myrth Rose</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.DESC"
+msgid "This bulbous succulent is oddly reminiscent of a young duplicant but much easier to take care of."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.DOMESTICATED_DESC"
+msgid "This bulbous succulent is oddly reminiscent of a young duplicant but much easier to take care of."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.PRICKLYLOTUS.NAME"
+msgid "<link=\"PRICKLYLOTUS\">Prickly Lotus</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.RUSTFERN.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.RUSTFERN.DESC"
+msgid "The fronds of this fern are hardened by minerals absorbed from the soil. Cooler environments promote mineral formation."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.RUSTFERN.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.RUSTFERN.DOMESTICATED_DESC"
+msgid "The fronds of this fern are hardened by minerals absorbed from the soil. Cooler environments promote mineral formation."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.RUSTFERN.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.RUSTFERN.NAME"
+msgid "<link=\"RUSTFERN\">Rust Fern</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.DESC"
+msgid "The result of genetic experimentation on <link=\"COLDBREATHER\">Wheezeworts</link>, this plant is actually a colony of symbiotic creatures."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.DOMESTICATED_DESC"
+msgid "The result of genetic experimentation on <link=\"COLDBREATHER\">Wheezeworts</link>, this plant is actually a colony of symbiotic creatures."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.SHLURPCORAL.NAME"
+msgid "<link=\"SHLURPCORAL\">Shlurp Coral</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SPORELAMP.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.SPORELAMP.DESC"
+msgid "When immersed in a reactive element, this mycelial organism emits a mesmerizing glow that lures its prey into inhospitable environments. Their remains provide fertilizer for its spread."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SPORELAMP.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.SPORELAMP.DOMESTICATED_DESC"
+msgid "When immersed in a reactive element, this mycelial organism emits a mesmerizing glow that lures its prey into inhospitable environments. Their remains provide fertilizer for its spread."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.SPORELAMP.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.SPORELAMP.NAME"
+msgid "<link=\"SPORELAMP\">Spore Lamp</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.TROPICALGAE.DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.TROPICALGAE.DESC"
+msgid "Many consider this plant to be an unsightly nuisance, but it provides shelter and food for aquatic life."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.TROPICALGAE.DOMESTICATED_DESC
+msgctxt "SharlesPlants.STRINGS.PLANTS.TROPICALGAE.DOMESTICATED_DESC"
+msgid "Many consider this plant to be an unsightly nuisance, but it provides shelter and food for aquatic life."
+msgstr ""
+
+#. SharlesPlants.STRINGS.PLANTS.TROPICALGAE.NAME
+msgctxt "SharlesPlants.STRINGS.PLANTS.TROPICALGAE.NAME"
+msgid "<link=\"TROPICALGAE\">Tropicalgae</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.FROSTBLOSSOM.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.FROSTBLOSSOM.SEED_DESC"
+msgid "The <link=\"PLANTS\">seed</link> of a <link=\"FROSTBLOSSOM\">Frost Blossom</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.FROSTBLOSSOM.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.FROSTBLOSSOM.SEED_NAME"
+msgid "<link=\"FROSTBLOSSOM\">Frost Blossom Seed</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.ICYSHROOM.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.ICYSHROOM.SEED_DESC"
+msgid "The <link=\"PLANTS\">spore</link> of a <link=\"ICYSHROOM\">Icy Shroom</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.ICYSHROOM.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.ICYSHROOM.SEED_NAME"
+msgid "<link=\"ICYSHROOM\">Icy Shroom Spore</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.MYRTHROSE.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.MYRTHROSE.SEED_DESC"
+msgid "The <link=\"PLANTS\">seed</link> of a <link=\"MYRTHROSE\">Myrth Rose</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.MYRTHROSE.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.MYRTHROSE.SEED_NAME"
+msgid "<link=\"MYRTHROSE\">Myrth Rose Seed</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.PRICKLYLOTUS.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.PRICKLYLOTUS.SEED_DESC"
+msgid "The <link=\"PLANTS\">seed bulb</link> of a <link=\"PRICKLYLOTUS\">Prickly Lotus</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.PRICKLYLOTUS.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.PRICKLYLOTUS.SEED_NAME"
+msgid "<link=\"PRICKLYLOTUS\">Prickly Lotus Seed</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.RUSTFERN.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.RUSTFERN.SEED_DESC"
+msgid "The <link=\"PLANTS\">seed</link> of a <link=\"RUSTFERN\">Rust Fern</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.RUSTFERN.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.RUSTFERN.SEED_NAME"
+msgid "<link=\"RUSTFERN\">Rust Fern Seed</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.SHLURPCORAL.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.SHLURPCORAL.SEED_DESC"
+msgid "The <link=\"PLANTS\">polyp</link> of a <link=\"SHLURPCORAL\">Shlurp Coral</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.SHLURPCORAL.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.SHLURPCORAL.SEED_NAME"
+msgid "<link=\"SHLURPCORAL\">Shlurp Coral Polyp</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.SPORELAMP.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.SPORELAMP.SEED_DESC"
+msgid "The <link=\"PLANTS\">spore</link> of a <link=\"SPORELAMP\">Spore Lamp</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.SPORELAMP.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.SPORELAMP.SEED_NAME"
+msgid "<link=\"SPORELAMP\">Spore Lamp Spore</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.TROPICALGAE.SEED_DESC
+msgctxt "SharlesPlants.STRINGS.SEEDS.TROPICALGAE.SEED_DESC"
+msgid "The <link=\"PLANTS\">seed bulb</link> of a <link=\"TROPICALGAE\">Tropicalgae</link>."
+msgstr ""
+
+#. SharlesPlants.STRINGS.SEEDS.TROPICALGAE.SEED_NAME
+msgctxt "SharlesPlants.STRINGS.SEEDS.TROPICALGAE.SEED_NAME"
+msgid "<link=\"TROPICALGAE\">Tropicalgae Seed</link>"
+msgstr ""
+
+#. SharlesPlants.STRINGS.TRANSLATION.AUTHOR.NAME
+msgctxt "SharlesPlants.STRINGS.TRANSLATION.AUTHOR.NAME"
+msgid "Versepelles"
+msgstr ""
+
