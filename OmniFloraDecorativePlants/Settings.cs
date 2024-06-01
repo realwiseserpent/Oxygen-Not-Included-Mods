@@ -32,9 +32,26 @@ namespace SharlesPlants
             _instance = POptions.ReadSettings<Settings>();
         }
 
+        [JsonProperty]
+        [Option("Additional Settings", category: "Additional Settings")]
+        public BasicSettings BaseSettings { get; set; }
+
         public Settings()
         {
+            BaseSettings = new BasicSettings();
+        }
 
+        [Serializable]
+        public class BasicSettings
+        {
+            [JsonProperty]
+            [Option("Extended Description", "Do you want to extend plant descriptions?")]
+            public bool ExtendedDesc { get; set; }
+
+            public BasicSettings()
+            {
+                ExtendedDesc = false;
+            }
         }
     }
 }
