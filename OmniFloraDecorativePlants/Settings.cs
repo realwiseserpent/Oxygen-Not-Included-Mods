@@ -32,14 +32,73 @@ namespace SharlesPlants
             _instance = POptions.ReadSettings<Settings>();
         }
 
-        public Settings()
-        {
-            BaseSettings = new BasicSettings();
-        }
+        [JsonProperty]
+        [Option("Low Decor", category: "Low Decor Settings")]
+        public BasicDecorSettings LowDecor { get; set; }
+
+        [JsonProperty]
+        [Option("Standard Decor", category: "Standard Decor Settings")]
+        public BasicDecorSettings StandardDecor { get; set; }
+
+        [JsonProperty]
+        [Option("Medium Decor", category: "Medium Decor Settings")]
+        public BasicDecorSettings MediumDecor { get; set; }
+
+        [JsonProperty]
+        [Option("High Decor", category: "High Decor Settings")]
+        public BasicDecorSettings HighDecor { get; set; }
+
+        [JsonProperty]
+        [Option("Amazing Decor", category: "Amazing Decor Settings")]
+        public BasicDecorSettings AmazingDecor { get; set; }
 
         [JsonProperty]
         [Option("Additional Settings", category: "Additional Settings")]
         public BasicSettings BaseSettings { get; set; }
+
+        public Settings()
+        {
+            LowDecor = new BasicDecorSettings() { Amount = 10, Radius = 3 };
+            StandardDecor = new BasicDecorSettings() { Amount = 20, Radius = 3 };
+            MediumDecor = new BasicDecorSettings() { Amount = 40, Radius = 5 };
+            HighDecor = new BasicDecorSettings() { Amount = 70, Radius = 6 };
+            AmazingDecor = new BasicDecorSettings() { Amount = 100, Radius = 7 };
+
+            BaseSettings = new BasicSettings();
+        }
+
+        public EffectorValues GetEffectorValues(DecorType ed)
+        {
+            switch (ed)
+            {
+                case DecorType.LowDecor: return new EffectorValues(LowDecor.Amount, LowDecor.Radius);
+                case DecorType.StandardDecor: return new EffectorValues(StandardDecor.Amount, StandardDecor.Radius);
+                case DecorType.MediumDecor: return new EffectorValues(MediumDecor.Amount, MediumDecor.Radius);
+                case DecorType.HighDecor: return new EffectorValues(HighDecor.Amount, HighDecor.Radius);
+                case DecorType.AmazingDecor: return new EffectorValues(AmazingDecor.Amount, AmazingDecor.Radius);
+                default: return TUNING.DECOR.BONUS.TIER0;
+            };
+        }
+
+        [Serializable]
+        public class BasicDecorSettings
+        {
+            [JsonProperty]
+            [Limit(1, 100)]
+            [Option("Decor Amount", "Select amount of decor")]
+            public int Amount { get; set; }
+
+            [JsonProperty]
+            [Limit(1, 10)]
+            [Option("Decor Radius", "Select radius of decor")]
+            public int Radius { get; set; }
+
+            public BasicDecorSettings()
+            {
+                Amount = 10;
+                Radius = 3;
+            }
+        }
 
         [Serializable]
         public class BasicSettings

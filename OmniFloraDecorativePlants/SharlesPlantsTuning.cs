@@ -5,6 +5,15 @@ using Temperatures = ProcGen.Temperature.Range;
 
 namespace SharlesPlants
 {
+    public enum DecorType
+    {
+        LowDecor,
+        StandardDecor,
+        MediumDecor,
+        HighDecor,
+        AmazingDecor
+    }
+
     public class SharlesPlantsTuning
     {
         public static bool DebugMode = false;
@@ -68,11 +77,11 @@ namespace SharlesPlants
         }
 
         public static EffectorValues WiltDecor = TUNING.DECOR.PENALTY.TIER3;
-        public static EffectorValues LowDecor = new EffectorValues() { amount = 10, radius = 3 };
-        public static EffectorValues StandardDecor = new EffectorValues() { amount = 20, radius = 3 };
-        public static EffectorValues MediumDecor = new EffectorValues() { amount = 40, radius = 5 };
-        public static EffectorValues HighDecor = new EffectorValues() { amount = 70, radius = 6 };
-        public static EffectorValues AmazingDecor = new EffectorValues() { amount = 100, radius = 7 };
+        //public static EffectorValues LowDecor = new EffectorValues() { amount = 10, radius = 3 };
+        //public static EffectorValues StandardDecor = new EffectorValues() { amount = 20, radius = 3 };
+        //public static EffectorValues MediumDecor = new EffectorValues() { amount = 40, radius = 5 };
+        //public static EffectorValues HighDecor = new EffectorValues() { amount = 70, radius = 6 };
+        //public static EffectorValues AmazingDecor = new EffectorValues() { amount = 100, radius = 7 };
 
         public static MinMax seedDensity = new MinMax(0.005f, 0.01f);
 
@@ -87,9 +96,9 @@ namespace SharlesPlants
             warningHigh = 363.15f,          //  90C
             lethalhigh = 403.15f,           // 130C
             defaultTemperature = 298.15f,   //  25C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = HighDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.HighDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -142,9 +151,9 @@ namespace SharlesPlants
             warningHigh = 283.15f,          //  10C
             lethalhigh = 303.15f,           //  30C
             defaultTemperature = 275.15f,   //   2C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = AmazingDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.AmazingDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -188,9 +197,9 @@ namespace SharlesPlants
             warningHigh = 291.15f,          //  18C
             lethalhigh = 303.15f,           //  30C
             defaultTemperature = 283.15f,   //  10C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = HighDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.HighDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -242,9 +251,9 @@ namespace SharlesPlants
             warningHigh = 328.15f,          //  55C
             lethalhigh = 363.15f,           //  90C
             defaultTemperature = 293.15f,   //  20C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = HighDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.HighDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -303,9 +312,9 @@ namespace SharlesPlants
             warningHigh = 335.15f,          //  62C
             lethalhigh = 353.15f,           //  80C
             defaultTemperature = 308.15f,   //  35C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = HighDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.HighDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -360,9 +369,9 @@ namespace SharlesPlants
             warningHigh = 361.15f,          //  88C
             lethalhigh = 403.15f,           // 130C
             defaultTemperature = 298.15f,   //  25C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = AmazingDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.AmazingDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.ContaminatedOxygen,
@@ -412,9 +421,9 @@ namespace SharlesPlants
             warningHigh = 328.15f,          //  55C
             lethalhigh = 353.15f,           //  80C
             defaultTemperature = 298.15f,   //  25C
-            juvenileDecor = LowDecor,
-            matureDecor = StandardDecor,
-            flourishingDecor = MediumDecor,
+            juvenileDecor = DecorType.LowDecor,
+            matureDecor = DecorType.StandardDecor,
+            flourishingDecor = DecorType.MediumDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Water,
@@ -471,9 +480,9 @@ namespace SharlesPlants
             warningHigh = 322.15f,          //  49C
             lethalhigh = 348.15f,           //  75C
             defaultTemperature = 303.15f,   //  30C
-            juvenileDecor = StandardDecor,
-            matureDecor = MediumDecor,
-            flourishingDecor = AmazingDecor,
+            juvenileDecor = DecorType.StandardDecor,
+            matureDecor = DecorType.MediumDecor,
+            flourishingDecor = DecorType.AmazingDecor,
             safeElements = new SimHashes[]
             {
                 SimHashes.Oxygen,
@@ -525,9 +534,9 @@ namespace SharlesPlants
             public float warningHigh;
             public float lethalhigh;
             public float defaultTemperature;
-            public EffectorValues juvenileDecor;
-            public EffectorValues matureDecor;
-            public EffectorValues flourishingDecor;
+            public DecorType juvenileDecor;
+            public DecorType matureDecor;
+            public DecorType flourishingDecor;
             public SimHashes[] safeElements;
             public ISet<Temperatures> biomeTemperatures;
             public ISet<string> biomes;
