@@ -420,6 +420,7 @@ namespace SharlesPlants
                 SimHashes.Water,
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
+                SimHashes.Brine,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
@@ -480,6 +481,7 @@ namespace SharlesPlants
                 SimHashes.Water,
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
+                SimHashes.Brine,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
