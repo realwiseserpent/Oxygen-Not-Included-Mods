@@ -1,7 +1,7 @@
 ﻿using ProcGen;
 using System.Collections.Generic;
 using System.Linq;
-using Temperatures =  ProcGen.Temperature.Range;
+using Temperatures = ProcGen.Temperature.Range;
 using static SharlesPlants.SharlesPlantsPatches;
 
 namespace SharlesPlants
@@ -297,6 +297,7 @@ namespace SharlesPlants
                 SimHashes.Water,
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
+                SimHashes.Brine,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
@@ -338,6 +339,7 @@ namespace SharlesPlants
                 SimHashes.Water,
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
+                SimHashes.Brine,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
