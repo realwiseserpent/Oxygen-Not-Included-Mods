@@ -4,6 +4,10 @@ namespace SharlesPlants
 {
     class STRINGS
     {
+        public class CODEX
+        {
+            public static LocString SUBTITLE = "Decorative Plant";
+        }
         public class PLANTS
         {
             public class FROSTBLOSSOM

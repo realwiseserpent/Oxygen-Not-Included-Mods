@@ -107,9 +107,14 @@ namespace SharlesPlants
             [Option("Seeds spawn", "Do you want to spawn buries seeds?")]
             public bool SeedsSpawn { get; set; }
 
+            [JsonProperty]
+            [Option("Extended Description", "Do you want to extend plant descriptions?")]
+            public bool ExtendedDesc { get; set; }
+
             public BasicSettings()
             {
                 SeedsSpawn = false;
+                ExtendedDesc = false;
             }
         }
     }

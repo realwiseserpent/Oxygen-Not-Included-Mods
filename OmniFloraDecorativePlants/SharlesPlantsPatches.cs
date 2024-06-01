@@ -103,6 +103,15 @@ namespace SharlesPlants
             {
                 Log("EntityConfigManager_LoadGeneratedEntities_Patch Prefix");
 
+                //RegisterPlantCodex(PricklyLotusConfig.Id, STRINGS.PLANTS.PRICKLYLOTUS.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(FrostBlossomConfig.Id, STRINGS.PLANTS.FROSTBLOSSOM.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(IcyShroomConfig.Id, STRINGS.PLANTS.ICYSHROOM.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(MyrthRoseConfig.Id, STRINGS.PLANTS.MYRTHROSE.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(RustFernConfig.Id, STRINGS.PLANTS.RUSTFERN.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(SporeLampConfig.Id, STRINGS.PLANTS.SPORELAMP.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(TropicalgaeConfig.Id, STRINGS.PLANTS.TROPICALGAE.NAME, STRINGS.CODEX.SUBTITLE);
+                //RegisterPlantCodex(ShlurpCoralConfig.Id, STRINGS.PLANTS.SHLURPCORAL.NAME, STRINGS.CODEX.SUBTITLE);
+
                 RegisterPlant(PricklyLotusConfig.Id, STRINGS.PLANTS.PRICKLYLOTUS.NAME, STRINGS.PLANTS.PRICKLYLOTUS.DESC, STRINGS.PLANTS.PRICKLYLOTUS.DOMESTICATED_DESC);
                 RegisterSeed(PricklyLotusConfig.SeedId, STRINGS.SEEDS.PRICKLYLOTUS.SEED_NAME, STRINGS.SEEDS.PRICKLYLOTUS.SEED_DESC);
                 RegisterPlant(FrostBlossomConfig.Id, STRINGS.PLANTS.FROSTBLOSSOM.NAME, STRINGS.PLANTS.FROSTBLOSSOM.DESC, STRINGS.PLANTS.FROSTBLOSSOM.DOMESTICATED_DESC);
@@ -248,6 +257,14 @@ namespace SharlesPlants
             Strings.Add($"STRINGS.CREATURES.SPECIES.SEEDS.{seedId.ToUpperInvariant()}.DESC", seedDescription);
         }
 
+        public static void RegisterPlantCodex(string plantId, string name, string subtitle, string body = "")
+        {
+            Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.TITLE", name);
+            Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.SUBTITLE", subtitle);
+            if (body != "")
+                Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.BODY.CONTAINER1", body);
+        }
+
         public static void RegisterSeedRecipe(string seedName, Tag seedIngredient, SimHashes materialIngredient, int sortOrder)
         {
             var ingredients = new ComplexRecipe.RecipeElement[]
@@ -274,6 +291,92 @@ namespace SharlesPlants
         {
             if (DebugMode || force)
                 Console.WriteLine($"<<Sharles Plants>> {msg}");
+        }
+
+
+        [HarmonyPatch(typeof(CodexEntryGenerator), "GeneratePlantEntries")]
+        public class SharlesPlants_CodexEntryGenerator_GeneratePlantEntries_Patch
+        {
+            public static void Postfix(Dictionary<string, CodexEntry> __result)
+            {
+                if (Settings.Instance.BaseSettings.ExtendedDesc)
+                    foreach (var key in PlantDictionary.Keys)
+                        UpdateCodex(key);
+            }
+        }
+
+        private static void UpdateCodex(string id)
+        {
+            CodexEntry entry = CodexCache.FindEntry(id.ToUpperInvariant());
+            GameObject go = Assets.GetPrefab(id);
+
+            if (entry == null || go == null)
+                return;
+
+            string desc = "";
+
+            WarmLovingPlant warm = go.GetComponent<WarmLovingPlant>();
+            ColdLovingPlant cold = go.GetComponent<ColdLovingPlant>();
+            ReactivePlant react = go.GetComponent<ReactivePlant>();
+            WaterPlant water = go.GetComponent<WaterPlant>();
+
+            if (warm != null)
+                desc +=
+                string.Format(STRINGS.MISC.MATURESABOVE, GameUtil.GetFormattedTemperature(warm.lowTransition)) +
+                "\n" + string.Format(STRINGS.MISC.FLOURISHESABOVE, GameUtil.GetFormattedTemperature(warm.highTransition));
+
+            if (cold != null)
+                desc +=
+                string.Format(STRINGS.MISC.MATURESBELOW, GameUtil.GetFormattedTemperature(cold.highTransition)) +
+                "\n" + string.Format(STRINGS.MISC.FLOURISHESBELOW, GameUtil.GetFormattedTemperature(cold.lowTransition));
+
+            if (react != null)
+            {
+                desc +=
+                string.Format(STRINGS.MISC.REACTSABOVEWITH, GameUtil.GetFormattedTemperature(react.requiredTemperature));
+
+                foreach (SimHashes hash in react.reactiveElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+            }
+
+            if (water != null)
+            {
+                desc +=
+                string.Format(STRINGS.MISC.FLOURISHESABOVEIN, GameUtil.GetFormattedTemperature(water.preferredTemperature));
+                foreach (SimHashes hash in water.preferredElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+
+                desc += "\n" + STRINGS.MISC.TOLERATES;
+                foreach (SimHashes hash in water.toleratedElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+            }
+
+            entry.contentContainers.InsertRange(0, new List<ContentContainer>()
+                {
+                    new ContentContainer()
+                    {
+                        contentLayout = ContentContainer.ContentLayout.Vertical,
+                        content = new List<ICodexWidget>()
+                        {
+                        new CodexText(go.GetProperName()) {
+                            style = CodexTextStyle.Title },
+                        new CodexText() {
+                            stringKey = $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                            style = CodexTextStyle.Subtitle },
+                        new CodexDividerLine() {
+                            preferredWidth = -1 }
+                        }
+                    },
+                    new ContentContainer()
+                    {
+                        contentLayout = ContentContainer.ContentLayout.Vertical,
+                        content = new List<ICodexWidget>()
+                        {
+                        new CodexText(desc) {
+                            style = CodexTextStyle.Body }
+                        }
+                    }
+                });
         }
     }
 }
