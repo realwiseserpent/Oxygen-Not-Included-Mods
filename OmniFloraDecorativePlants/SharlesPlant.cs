@@ -14,11 +14,11 @@ namespace SharlesPlants
             Flourishing
         }
 
+        public bool replanted;
+
         [MyCmpGet]
         private Light2D lightSource;
 
-        [MyCmpReq]
-        private ReceptacleMonitor rm;
 
         [MyCmpReq]
         private WiltCondition wiltCondition;
@@ -27,6 +27,14 @@ namespace SharlesPlants
             juvenileDecor,
             matureDecor,
             flourishingDecor;
+
+        private static readonly EventSystem.IntraObjectHandler<SharlesPlant> SetReplantedTrueDelegate = new EventSystem.IntraObjectHandler<SharlesPlant>((System.Action<SharlesPlant, object>)((component, data) => component.replanted = true));
+
+        protected override void OnPrefabInit()
+        {
+            base.OnPrefabInit();
+            this.Subscribe<SharlesPlant>(1309017699, SharlesPlant.SetReplantedTrueDelegate);
+        }
 
         protected override void OnSpawn()
         {
@@ -50,7 +58,7 @@ namespace SharlesPlants
                 (notificationList, data) => CREATURES.STATUSITEMS.PLANTDEATH.NOTIFICATION_TOOLTIP + notificationList.ReduceMessages(false), "/t• " + gameObject.GetProperName());
         }
 
-        public virtual Condition GetCondition() 
+        public virtual Condition GetCondition()
         {
             return Condition.Juvenile;
         }
@@ -82,9 +90,9 @@ namespace SharlesPlants
 
                 Dead
                     .ToggleStatusItem(plantname, tooltip, string.Empty, StatusItem.IconType.Info, 0, false, OverlayModes.None.ID, category: main)
-                    .Enter(smi =>
+                    .Enter((StateMachine<SharlesPlant.States, SharlesPlant.StatesInstance, SharlesPlant, object>.State.Callback)(smi =>
                     {
-                        if (smi.master.rm.Replanted && !smi.master.GetComponent<KPrefabID>().HasTag(GameTags.Uprooted))
+                        if (smi.master.replanted && !smi.master.GetComponent<KPrefabID>().HasTag(GameTags.Uprooted))
                             smi.master.gameObject.AddOrGet<Notifier>().Add(smi.master.CreateDeathNotification());
 
                         GameUtil.KInstantiate(Assets.GetPrefab(EffectConfigs.PlantDeathId), smi.master.transform.GetPosition(), Grid.SceneLayer.FXFront).SetActive(true);
@@ -93,7 +101,7 @@ namespace SharlesPlants
                         smi.master.GetComponent<KBatchedAnimController>().StopAndClear();
                         Destroy(smi.master.GetComponent<KBatchedAnimController>());
                         smi.Schedule(0.5f, smi.master.DestroySelf);
-                    });
+                    }));
 
                 Alive
                     .InitializeStates(masterTarget, Dead)
@@ -142,7 +150,7 @@ namespace SharlesPlants
             {
                 plant.GetComponent<DecorProvider>().SetValues(decorEffect);
                 plant.GetComponent<DecorProvider>().Refresh();
-                if(decorEffect.amount > 0)
+                if (decorEffect.amount > 0)
                     plant.AddTag(GameTags.Decoration);
                 else
                     plant.RemoveTag(GameTags.Decoration);
