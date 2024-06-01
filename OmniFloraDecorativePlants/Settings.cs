@@ -111,10 +111,15 @@ namespace SharlesPlants
             [Option("Extended Description", "Do you want to extend plant descriptions?")]
             public bool ExtendedDesc { get; set; }
 
+            [JsonProperty]
+            [Option("Spore Lamp Reactive Gases", "Do you want to extend list of Spore Lamp reactive gases?")]
+            public bool ExtendedSporeLampGasList { get; set; }
+
             public BasicSettings()
             {
                 SeedsSpawn = false;
                 ExtendedDesc = false;
+                ExtendedSporeLampGasList = false;
             }
         }
     }
