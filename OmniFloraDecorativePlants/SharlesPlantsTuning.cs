@@ -41,7 +41,10 @@ namespace SharlesPlants
                 NIOBIUM = PREFIX + "Niobium",
                 RADIOACTIVE = PREFIX + "Radioactive",
                 SWAMP = PREFIX + "Swamp",
-                WASTELAND = PREFIX + "Wasteland";
+                WASTELAND = PREFIX + "Wasteland",
+                ICECAVES = PREFIX + "IceCaves",
+                CARROTQUARRY = PREFIX + "CarrotQuarry",
+                SUGARWOODS = PREFIX + "SugarWoods";
         }
         public class EARTH_BIOME_STRINGS //Earth mod
         {
@@ -171,6 +174,7 @@ namespace SharlesPlants
             {
                 BIOME_STRINGS.FROZEN,
                 BIOME_STRINGS.RADIOACTIVE,
+                BIOME_STRINGS.SUGARWOODS,
                 BAATOR_BIOME_STRINGS.STYGIA,
                 BAATOR_BIOME_STRINGS.CANIA,
             },
@@ -222,6 +226,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.OCEAN,
                 BIOME_STRINGS.SWAMP,
+                BIOME_STRINGS.CARROTQUARRY,
+                BIOME_STRINGS.ICECAVES,
                 BAATOR_BIOME_STRINGS.STYGIA,
                 BAATOR_BIOME_STRINGS.CANIA,
                 EARTH_BIOME_STRINGS.ASTHENOSPHERE,
@@ -237,6 +243,7 @@ namespace SharlesPlants
             biomes = new HashSet<string>() {
                 BIOME_STRINGS.FROZEN,
                 BAATOR_BIOME_STRINGS.CANIA,
+                BIOME_STRINGS.ICECAVES,
             },
         };
 
@@ -339,6 +346,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.RADIOACTIVE,
                 BIOME_STRINGS.WASTELAND,
                 "GraphiteCaves",
+                BIOME_STRINGS.CARROTQUARRY,
                 BAATOR_BIOME_STRINGS.SHADOWFEL,
                 BAATOR_BIOME_STRINGS.STYGIA,
                 EARTH_BIOME_STRINGS.ASTHENOSPHERE,
@@ -354,6 +362,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.RUST,
                 BIOME_STRINGS.BARREN,
                 "GraphiteCaves",
+                BIOME_STRINGS.CARROTQUARRY,
                 EARTH_BIOME_STRINGS.SURFACE,
                 BAATOR_BIOME_STRINGS.SHADOWFEL,
             },
