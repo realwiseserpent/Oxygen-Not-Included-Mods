@@ -209,10 +209,12 @@ namespace SharlesPlants
                 Log("Immigration_ConfigureCarePackages_Patch Postfix");
 
                 var field = Traverse.Create(__instance).Field("carePackages");
-                var list = field.GetValue<CarePackageInfo[]>().ToList();
+                List<CarePackageInfo> list = field.GetValue() as List<CarePackageInfo>;
 
-                list.Add(new CarePackageInfo("BulbPlantSeed", 3f, null)); // add Buddy Bud seeds
-                list.Add(new CarePackageInfo("EvilFlowerSeed", 1f, () => GameClock.Instance.GetCycle() >= 24)); // add Sporechid seeds
+                if (list.FindIndex(x => x.id.ToUpper() == "BulbPlantSeed".ToUpper()) == -1)
+                    list.Add(new CarePackageInfo("BulbPlantSeed", 3f, null)); // add Buddy Bud seeds
+                if (list.FindIndex(x => x.id.ToUpper() == "EvilFlowerSeed".ToUpper()) == -1)
+                    list.Add(new CarePackageInfo("EvilFlowerSeed", 1f, () => GameClock.Instance.GetCycle() >= 24)); // add Sporechid seeds
                 list.Add(new CarePackageInfo(PricklyLotusConfig.SeedId, 3f, null));
                 list.Add(new CarePackageInfo(FrostBlossomConfig.SeedId, 3f, null));
                 list.Add(new CarePackageInfo(IcyShroomConfig.SeedId, 3f, null));
@@ -221,7 +223,7 @@ namespace SharlesPlants
                 list.Add(new CarePackageInfo(SporeLampConfig.SeedId, 3f, null));
                 list.Add(new CarePackageInfo(TropicalgaeConfig.SeedId, 3f, null));
                 list.Add(new CarePackageInfo(ShlurpCoralConfig.SeedId, 3f, null));
-                field.SetValue(list.ToArray());
+                field.SetValue(list);
             }
         }
 

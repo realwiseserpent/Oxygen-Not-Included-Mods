@@ -48,18 +48,18 @@ namespace SharlesPlants
                 baseTraitId: id + "Original",
                 baseTraitName: name);
 
-            var seed = EntityTemplates.CreateAndRegisterSeedForPlant(
-                plant: plantEntityTemplate,
-                id: seedId,
-                name: UI.FormatAsLink(seedName, id),
-                desc: seedDescription,
-                productionType: SeedProducer.ProductionType.Hidden,
-                anim: Assets.GetAnim(seedAnimName),
-                numberOfSeeds: 0,
-                additionalTags: new List<Tag> { GameTags.DecorSeed },
+			var seed = EntityTemplates.CreateAndRegisterSeedForPlant(
+				plant: plantEntityTemplate,
+				id: seedId,
+				name: UI.FormatAsLink(seedName, id),
+				desc: seedDescription,
+				productionType: SeedProducer.ProductionType.Hidden,
+				anim: Assets.GetAnim(seedAnimName),
+				additionalTags: new List<Tag> { GameTags.DecorSeed },
+				domesticatedDescription: description,
                 sortOrder: 7,
                 width: 0.33f,
-                height: 0.33f);
+				height: 0.33f);
 
             EntityTemplates.CreateAndRegisterPreviewForPlant(
                 seed: seed,
