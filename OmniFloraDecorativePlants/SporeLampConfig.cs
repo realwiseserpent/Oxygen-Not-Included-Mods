@@ -31,6 +31,7 @@ namespace SharlesPlants
             List<SimHashes> AdditionalElements = new List<SimHashes>()
                 {
                     SimHashes.Helium,
+                    SimHashes.Propane,
                     SimHashes.Syngas,
                 };
             if (Settings.Instance.BaseSettings.ExtendedSporeLampGasList)
