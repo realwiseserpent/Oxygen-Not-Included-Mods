@@ -55,10 +55,10 @@ namespace SharlesPlants
 				desc: seedDescription,
 				productionType: SeedProducer.ProductionType.Hidden,
 				anim: Assets.GetAnim(seedAnimName),
-				numberOfSeeds: 0,
 				additionalTags: new List<Tag> { GameTags.DecorSeed },
-				sortOrder: 7,
-				width: 0.33f,
+				domesticatedDescription: description,
+                sortOrder: 7,
+                width: 0.33f,
 				height: 0.33f);
 
 			EntityTemplates.CreateAndRegisterPreviewForPlant(
