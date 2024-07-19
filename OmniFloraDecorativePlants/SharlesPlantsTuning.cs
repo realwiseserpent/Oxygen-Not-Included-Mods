@@ -33,7 +33,10 @@ namespace SharlesPlants
                 NIOBIUM = PREFIX + "Niobium",
                 RADIOACTIVE = PREFIX + "Radioactive",
                 SWAMP = PREFIX + "Swamp",
-                WASTELAND = PREFIX + "Wasteland";
+                WASTELAND = PREFIX + "Wasteland",
+                ICECAVES = PREFIX + "IceCaves",
+                CARROTQUARRY = PREFIX + "CarrotQuarry",
+                SUGARWOODS = PREFIX + "SugarWoods";
         }
 
         public static EffectorValues WiltDecor = TUNING.DECOR.PENALTY.TIER3;
@@ -115,6 +118,7 @@ namespace SharlesPlants
             {
                 BIOME_STRINGS.FROZEN,
                 BIOME_STRINGS.RADIOACTIVE,
+                BIOME_STRINGS.SUGARWOODS,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -155,6 +159,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.OCEAN,
                 BIOME_STRINGS.SWAMP,
+                BIOME_STRINGS.CARROTQUARRY,
+                BIOME_STRINGS.ICECAVES,
             },
             spawnLocation = Mob.Location.Floor,
         };
@@ -236,6 +242,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.RADIOACTIVE,
                 BIOME_STRINGS.WASTELAND,
                 "GraphiteCaves",
+                BIOME_STRINGS.CARROTQUARRY,
             },
             spawnLocation = Mob.Location.Floor,
         };
