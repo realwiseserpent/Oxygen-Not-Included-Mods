@@ -240,10 +240,10 @@ namespace SharlesPlants
                 RegisterSeedRecipe(FrostBlossomConfig.SeedId, "ColdWheatSeed", SimHashes.Tungsten, 471);
                 RegisterSeedRecipe(IcyShroomConfig.SeedId, "MushroomSeed", SimHashes.Wolframite, 472);
                 RegisterSeedRecipe(MyrthRoseConfig.SeedId, "LeafyPlantSeed", SimHashes.Fertilizer, 473);
-                RegisterSeedRecipe(RustFernConfig.SeedId, "OxyfernSeed", SimHashes.Rust, 474);
+                RegisterSeedRecipe(RustFernConfig.SeedId, "PrickleGrassSeed", SimHashes.Rust, 474);
                 RegisterSeedRecipe(SporeLampConfig.SeedId, "MushroomSeed", SimHashes.Carbon, 475);
-                RegisterSeedRecipe(TropicalgaeConfig.SeedId, "BulbPlantSeed", SimHashes.Algae, 476);
-                RegisterSeedRecipe(ShlurpCoralConfig.SeedId, "ColdBreatherSeed", SimHashes.Salt, 477);
+                RegisterSeedRecipe(TropicalgaeConfig.SeedId, "SeaLettuceSeed", SimHashes.Algae, 476);
+                RegisterSeedRecipe(ShlurpCoralConfig.SeedId, "SeaLettuceSeed", SimHashes.Salt, 477);
             }
         }
 
@@ -282,7 +282,7 @@ namespace SharlesPlants
             var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
             new ComplexRecipe(recipeId, ingredients, results)
             {
-                time = 100f,
+                time = 80f,
                 //description = null,
                 nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
                 fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },
