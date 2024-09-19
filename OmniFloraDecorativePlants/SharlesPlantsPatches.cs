@@ -31,6 +31,7 @@ using Klei;
 using ProcGen;
 using STRINGS;
 using static SharlesPlants.SharlesPlantsTuning;
+using static STRINGS.CODEX;
 
 namespace SharlesPlants
 {
@@ -295,8 +296,118 @@ namespace SharlesPlants
                 Console.WriteLine($"<<Sharles Plants>> {msg}");
         }
 
+        [HarmonyPatch(typeof(CodexEntry))]
+        [HarmonyPatch(MethodType.Constructor)]
+        [HarmonyPatch(new Type[] {
+            typeof(string),
+            typeof(List<ContentContainer>),
+            typeof(string)
+        })]
+        public static class CodexEntry_Constructor_Patch
+        {
+            private static void Postfix(CodexEntry __instance)
+            {
+                if (!Settings.Instance.BaseSettings.ExtendedDesc || __instance.category != "PLANTS")
+                    return;
 
-        [HarmonyPatch(typeof(CodexEntryGenerator), "GeneratePlantEntries")]
+                GameObject frost = Assets.GetPrefab(FrostBlossomConfig.Id);
+                GameObject mushroom = Assets.GetPrefab(IcyShroomConfig.Id);
+                GameObject myrth = Assets.GetPrefab(MyrthRoseConfig.Id);
+                GameObject pricky = Assets.GetPrefab(PricklyLotusConfig.Id);
+                GameObject rust = Assets.GetPrefab(RustFernConfig.Id);
+                GameObject shlurp = Assets.GetPrefab(ShlurpCoralConfig.Id);
+                GameObject spore = Assets.GetPrefab(SporeLampConfig.Id);
+                GameObject tropic = Assets.GetPrefab(TropicalgaeConfig.Id);
+
+
+                if (frost.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(FrostBlossomConfig.Id));
+                else if (mushroom.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(IcyShroomConfig.Id));
+                else if (myrth.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(MyrthRoseConfig.Id));
+                else if (pricky.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(PricklyLotusConfig.Id));
+                else if (rust.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(RustFernConfig.Id));
+                else if (shlurp.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(ShlurpCoralConfig.Id));
+                else if (spore.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(SporeLampConfig.Id));
+                else if (tropic.GetProperName() == __instance.name)
+                    __instance.contentContainers.InsertRange(0, GetCodexContainers(TropicalgaeConfig.Id));
+            }
+        }
+
+        private static List<ContentContainer> GetCodexContainers(string id)
+        {
+            string desc = "";
+
+            GameObject go = Assets.GetPrefab(id);
+
+            WarmLovingPlant warm = go.GetComponent<WarmLovingPlant>();
+            ColdLovingPlant cold = go.GetComponent<ColdLovingPlant>();
+            ReactivePlant react = go.GetComponent<ReactivePlant>();
+            WaterPlant water = go.GetComponent<WaterPlant>();
+
+            if (warm != null)
+                desc +=
+                string.Format(STRINGS.MISC.MATURESABOVE, GameUtil.GetFormattedTemperature(warm.lowTransition)) +
+                "\n" + string.Format(STRINGS.MISC.FLOURISHESABOVE, GameUtil.GetFormattedTemperature(warm.highTransition));
+
+            if (cold != null)
+                desc +=
+                string.Format(STRINGS.MISC.MATURESBELOW, GameUtil.GetFormattedTemperature(cold.highTransition)) +
+                "\n" + string.Format(STRINGS.MISC.FLOURISHESBELOW, GameUtil.GetFormattedTemperature(cold.lowTransition));
+
+            if (react != null)
+            {
+                desc +=
+                string.Format(STRINGS.MISC.REACTSABOVEWITH, GameUtil.GetFormattedTemperature(react.requiredTemperature));
+
+                foreach (SimHashes hash in react.reactiveElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+            }
+
+            if (water != null)
+            {
+                desc +=
+                string.Format(STRINGS.MISC.FLOURISHESABOVEIN, GameUtil.GetFormattedTemperature(water.preferredTemperature));
+                foreach (SimHashes hash in water.preferredElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+
+                desc += "\n" + STRINGS.MISC.TOLERATES;
+                foreach (SimHashes hash in water.toleratedElements)
+                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+            }
+
+
+            return new List<ContentContainer>()
+                {
+                    new ContentContainer()
+                    {
+                        contentLayout = ContentContainer.ContentLayout.Vertical,
+                        content = new List<ICodexWidget>()
+                        {
+                        new CodexText() { stringKey = $"STRINGS.CREATURES.SPECIES.{id.ToUpperInvariant()}.NAME",
+                            style = CodexTextStyle.Title },
+                        new CodexText() { stringKey = $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                            style = CodexTextStyle.Subtitle },
+                        new CodexDividerLine() { preferredWidth = -1 }
+                        }
+                    },
+                    new ContentContainer()
+                    {
+                        contentLayout = ContentContainer.ContentLayout.Vertical,
+                        content = new List<ICodexWidget>()
+                        {
+                            new CodexText(desc) { style = CodexTextStyle.Body }
+                        }
+                    }
+                };
+        }
+
+        //[HarmonyPatch(typeof(CodexEntryGenerator), "GeneratePlantEntries")]
         public class SharlesPlants_CodexEntryGenerator_GeneratePlantEntries_Patch
         {
             public static void Postfix(Dictionary<string, CodexEntry> __result)
