@@ -193,16 +193,16 @@ namespace SharlesPlants
 			{
 				Log("SupermaterialRefineryConfig_ConfigureBuildingTemplate_Patch Postfix");
 
-				RegisterSeedRecipe(PricklyLotusConfig.SeedId, "CactusPlantSeed", SimHashes.Sand, 470);
-				RegisterSeedRecipe(FrostBlossomConfig.SeedId, "ColdWheatSeed", SimHashes.Tungsten, 471);
-				RegisterSeedRecipe(IcyShroomConfig.SeedId, "MushroomSeed", SimHashes.Wolframite, 472);
-				RegisterSeedRecipe(MyrthRoseConfig.SeedId, "LeafyPlantSeed", SimHashes.Fertilizer, 473);
-				RegisterSeedRecipe(RustFernConfig.SeedId, "OxyfernSeed", SimHashes.Rust, 474);
-				RegisterSeedRecipe(SporeLampConfig.SeedId, "MushroomSeed", SimHashes.Carbon, 475);
-				RegisterSeedRecipe(TropicalgaeConfig.SeedId, "BulbPlantSeed", SimHashes.Algae, 476);
-				RegisterSeedRecipe(ShlurpCoralConfig.SeedId, "ColdBreatherSeed", SimHashes.Salt, 477);
-			}
-		}
+                RegisterSeedRecipe(PricklyLotusConfig.SeedId, "CactusPlantSeed", SimHashes.Sand, 470);
+                RegisterSeedRecipe(FrostBlossomConfig.SeedId, "ColdWheatSeed", SimHashes.Tungsten, 471);
+                RegisterSeedRecipe(IcyShroomConfig.SeedId, "MushroomSeed", SimHashes.Wolframite, 472);
+                RegisterSeedRecipe(MyrthRoseConfig.SeedId, "LeafyPlantSeed", SimHashes.Fertilizer, 473);
+                RegisterSeedRecipe(RustFernConfig.SeedId, "PrickleGrassSeed", SimHashes.Rust, 474);
+                RegisterSeedRecipe(SporeLampConfig.SeedId, "MushroomSeed", SimHashes.Carbon, 475);
+                RegisterSeedRecipe(TropicalgaeConfig.SeedId, "SeaLettuceSeed", SimHashes.Algae, 476);
+                RegisterSeedRecipe(ShlurpCoralConfig.SeedId, "SeaLettuceSeed", SimHashes.Salt, 477);
+            }
+        }
 
 		public static void RegisterPlant(string plantId, string name, string description, string domesticatedDescription)
 		{
@@ -217,27 +217,27 @@ namespace SharlesPlants
 			Strings.Add($"STRINGS.CREATURES.SPECIES.SEEDS.{seedId.ToUpperInvariant()}.DESC", seedDescription);
 		}
 
-		public static void RegisterSeedRecipe(string seedName, Tag seedIngredient, SimHashes materialIngredient, int sortOrder)
-		{
-			var ingredients = new ComplexRecipe.RecipeElement[]
-			{
-			  new ComplexRecipe.RecipeElement(seedIngredient, 1f),
-			  new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
-			};
-			var results = new ComplexRecipe.RecipeElement[]
-			{
-			  new ComplexRecipe.RecipeElement(seedName, 1f)
-			};
-			var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
-			new ComplexRecipe(recipeId, ingredients, results)
-			{
-				time = 100f,
-				//description = null,
-				nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
-				fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },
-				sortOrder = sortOrder,
-			};
-		}
+        public static void RegisterSeedRecipe(string seedName, Tag seedIngredient, SimHashes materialIngredient, int sortOrder)
+        {
+            var ingredients = new ComplexRecipe.RecipeElement[]
+            {
+              new ComplexRecipe.RecipeElement(seedIngredient, 1f),
+              new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
+            };
+            var results = new ComplexRecipe.RecipeElement[]
+            {
+              new ComplexRecipe.RecipeElement(seedName, 1f)
+            };
+            var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
+            new ComplexRecipe(recipeId, ingredients, results)
+            {
+                time = 80f,
+                //description = null,
+                nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
+                fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },
+                sortOrder = sortOrder,
+            };
+        }
 
 		public static void Log(string msg, bool force = false)
 		{
