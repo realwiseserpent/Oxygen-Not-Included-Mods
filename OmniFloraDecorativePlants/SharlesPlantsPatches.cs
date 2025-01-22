@@ -272,18 +272,18 @@ namespace SharlesPlants
         {
             var ingredients = new ComplexRecipe.RecipeElement[]
             {
-              new ComplexRecipe.RecipeElement(seedIngredient, 1f),
-              new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
+                new ComplexRecipe.RecipeElement(seedIngredient, 1f),
+                new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
             };
             var results = new ComplexRecipe.RecipeElement[]
             {
-              new ComplexRecipe.RecipeElement(seedName, 1f)
+                new ComplexRecipe.RecipeElement(seedName, 1f)
             };
             var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
             new ComplexRecipe(recipeId, ingredients, results)
             {
-                time = 80f,
-                //description = null,
+                time = 100f,
+                description = Strings.Get($"STRINGS.CREATURES.SPECIES.SEEDS.{seedName.ToUpperInvariant()}.DESC"),
                 nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
                 fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },
                 sortOrder = sortOrder,
@@ -296,200 +296,101 @@ namespace SharlesPlants
                 Console.WriteLine($"<<Sharles Plants>> {msg}");
         }
 
-        [HarmonyPatch(typeof(CodexEntry))]
-        [HarmonyPatch(MethodType.Constructor)]
-        [HarmonyPatch(new Type[] {
-            typeof(string),
-            typeof(List<ContentContainer>),
-            typeof(string)
-        })]
-        public static class CodexEntry_Constructor_Patch
+        [HarmonyPatch(typeof(CodexCache), "CollectEntries")]
+        public class CodexCache_CollectEntries_Patch
         {
-            private static void Postfix(CodexEntry __instance)
+            public static void Postfix(string folder, List<CodexEntry> __result)
             {
-                if (!Settings.Instance.BaseSettings.ExtendedDesc || __instance.category != "PLANTS")
+                if (folder != string.Empty || !Settings.Instance.BaseSettings.ExtendedDesc)
                     return;
 
-                GameObject frost = Assets.GetPrefab(FrostBlossomConfig.Id);
-                GameObject mushroom = Assets.GetPrefab(IcyShroomConfig.Id);
-                GameObject myrth = Assets.GetPrefab(MyrthRoseConfig.Id);
-                GameObject pricky = Assets.GetPrefab(PricklyLotusConfig.Id);
-                GameObject rust = Assets.GetPrefab(RustFernConfig.Id);
-                GameObject shlurp = Assets.GetPrefab(ShlurpCoralConfig.Id);
-                GameObject spore = Assets.GetPrefab(SporeLampConfig.Id);
-                GameObject tropic = Assets.GetPrefab(TropicalgaeConfig.Id);
+                string speciesNameTemplate = "STRINGS.CREATURES.SPECIES.{0}.NAME";
+                string speciesDescTemplate = "STRINGS.CREATURES.SPECIES.{0}.DESC";
 
+                CodexEntry temp;
 
-                if (frost.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(FrostBlossomConfig.Id));
-                else if (mushroom.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(IcyShroomConfig.Id));
-                else if (myrth.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(MyrthRoseConfig.Id));
-                else if (pricky.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(PricklyLotusConfig.Id));
-                else if (rust.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(RustFernConfig.Id));
-                else if (shlurp.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(ShlurpCoralConfig.Id));
-                else if (spore.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(SporeLampConfig.Id));
-                else if (tropic.GetProperName() == __instance.name)
-                    __instance.contentContainers.InsertRange(0, GetCodexContainers(TropicalgaeConfig.Id));
+                if ((temp = CreateCodex<ColdLovingPlant>(FrostBlossomConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ColdLovingPlant>(IcyShroomConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WarmLovingPlant>(MyrthRoseConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WarmLovingPlant>(PricklyLotusConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ColdLovingPlant>(RustFernConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WaterPlant>(ShlurpCoralConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ReactivePlant>(SporeLampConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WaterPlant>(TropicalgaeConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
             }
         }
 
-        private static List<ContentContainer> GetCodexContainers(string id)
+        private static CodexEntry CreateCodex<T>(string id, string title, string subtitle, string body,
+            string category, bool cutVersion = false) where T : SharlesPlant
         {
-            string desc = "";
-
             GameObject go = Assets.GetPrefab(id);
 
-            WarmLovingPlant warm = go.GetComponent<WarmLovingPlant>();
-            ColdLovingPlant cold = go.GetComponent<ColdLovingPlant>();
-            ReactivePlant react = go.GetComponent<ReactivePlant>();
-            WaterPlant water = go.GetComponent<WaterPlant>();
+            if (go == null)
+                return null;
 
-            if (warm != null)
-                desc +=
-                string.Format(STRINGS.MISC.MATURESABOVE, GameUtil.GetFormattedTemperature(warm.lowTransition)) +
-                "\n" + string.Format(STRINGS.MISC.FLOURISHESABOVE, GameUtil.GetFormattedTemperature(warm.highTransition));
-
-            if (cold != null)
-                desc +=
-                string.Format(STRINGS.MISC.MATURESBELOW, GameUtil.GetFormattedTemperature(cold.highTransition)) +
-                "\n" + string.Format(STRINGS.MISC.FLOURISHESBELOW, GameUtil.GetFormattedTemperature(cold.lowTransition));
-
-            if (react != null)
+            List<ContentContainer> containers = new List<ContentContainer>
             {
-                desc +=
-                string.Format(STRINGS.MISC.REACTSABOVEWITH, GameUtil.GetFormattedTemperature(react.requiredTemperature));
+                new ContentContainer(new List<ICodexWidget>()
+                    {
+                        new CodexText() { stringKey = string.Format(title, id.ToUpperInvariant()), style = CodexTextStyle.Title },
+                        new CodexText() { stringKey = string.Format(subtitle, id.ToUpperInvariant()), style = CodexTextStyle.Subtitle },
+                        new CodexDividerLine()
+                    }, ContentContainer.ContentLayout.Vertical)
+            };
 
-                foreach (SimHashes hash in react.reactiveElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
-            }
+            Sprite first = Def.GetUISprite(go).first;
 
-            if (water != null)
+            if (!cutVersion)
+                CodexEntryGenerator.GenerateImageContainers(first, containers);
+
+            List<ICodexWidget> content = new List<ICodexWidget>
             {
-                desc +=
-                string.Format(STRINGS.MISC.FLOURISHESABOVEIN, GameUtil.GetFormattedTemperature(water.preferredTemperature));
-                foreach (SimHashes hash in water.preferredElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
-
-                desc += "\n" + STRINGS.MISC.TOLERATES;
-                foreach (SimHashes hash in water.toleratedElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
-            }
-
-
-            return new List<ContentContainer>()
+                new CodexText()
                 {
-                    new ContentContainer()
-                    {
-                        contentLayout = ContentContainer.ContentLayout.Vertical,
-                        content = new List<ICodexWidget>()
-                        {
-                        new CodexText() { stringKey = $"STRINGS.CREATURES.SPECIES.{id.ToUpperInvariant()}.NAME",
-                            style = CodexTextStyle.Title },
-                        new CodexText() { stringKey = $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
-                            style = CodexTextStyle.Subtitle },
-                        new CodexDividerLine() { preferredWidth = -1 }
-                        }
-                    },
-                    new ContentContainer()
-                    {
-                        contentLayout = ContentContainer.ContentLayout.Vertical,
-                        content = new List<ICodexWidget>()
-                        {
-                            new CodexText(desc) { style = CodexTextStyle.Body }
-                        }
-                    }
-                };
-        }
+                    stringKey = string.Format(body, id.ToUpperInvariant()),
+                    style = CodexTextStyle.Body
+                }
+            };
 
-        //[HarmonyPatch(typeof(CodexEntryGenerator), "GeneratePlantEntries")]
-        public class SharlesPlants_CodexEntryGenerator_GeneratePlantEntries_Patch
-        {
-            public static void Postfix(Dictionary<string, CodexEntry> __result)
+            var pillDescriptors = go.GetComponent<T>().GetDescriptors(go);
+            if (pillDescriptors.Count > 0)
             {
-                if (Settings.Instance.BaseSettings.ExtendedDesc)
-                    foreach (var key in PlantDictionary.Keys)
-                        UpdateCodex(key);
-            }
-        }
-
-        private static void UpdateCodex(string id)
-        {
-            CodexEntry entry = CodexCache.FindEntry(id.ToUpperInvariant());
-            GameObject go = Assets.GetPrefab(id);
-
-            if (entry == null || go == null)
-                return;
-
-            string desc = "";
-
-            WarmLovingPlant warm = go.GetComponent<WarmLovingPlant>();
-            ColdLovingPlant cold = go.GetComponent<ColdLovingPlant>();
-            ReactivePlant react = go.GetComponent<ReactivePlant>();
-            WaterPlant water = go.GetComponent<WaterPlant>();
-
-            if (warm != null)
-                desc +=
-                string.Format(STRINGS.MISC.MATURESABOVE, GameUtil.GetFormattedTemperature(warm.lowTransition)) +
-                "\n" + string.Format(STRINGS.MISC.FLOURISHESABOVE, GameUtil.GetFormattedTemperature(warm.highTransition));
-
-            if (cold != null)
-                desc +=
-                string.Format(STRINGS.MISC.MATURESBELOW, GameUtil.GetFormattedTemperature(cold.highTransition)) +
-                "\n" + string.Format(STRINGS.MISC.FLOURISHESBELOW, GameUtil.GetFormattedTemperature(cold.lowTransition));
-
-            if (react != null)
-            {
-                desc +=
-                string.Format(STRINGS.MISC.REACTSABOVEWITH, GameUtil.GetFormattedTemperature(react.requiredTemperature));
-
-                foreach (SimHashes hash in react.reactiveElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+                content.Add(new CodexText(HEADERS.EQUIPMENTEFFECTS, CodexTextStyle.Subtitle));
+                foreach (Descriptor descriptor in pillDescriptors)
+                    content.Add(new CodexText("    " + descriptor.text));
+                content.Add(new CodexSpacer());
             }
 
-            if (water != null)
-            {
-                desc +=
-                string.Format(STRINGS.MISC.FLOURISHESABOVEIN, GameUtil.GetFormattedTemperature(water.preferredTemperature));
-                foreach (SimHashes hash in water.preferredElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
+            ContentContainer contentContainer = new ContentContainer(content, ContentContainer.ContentLayout.Vertical);
+            containers.Add(contentContainer);
 
-                desc += "\n" + STRINGS.MISC.TOLERATES;
-                foreach (SimHashes hash in water.toleratedElements)
-                    desc += "\n    • " + ElementLoader.FindElementByHash(hash).name;
-            }
+            CodexEntry entry = new CodexEntry(category, containers, go.GetProperName());
 
-            entry.contentContainers.InsertRange(0, new List<ContentContainer>()
-                {
-                    new ContentContainer()
-                    {
-                        contentLayout = ContentContainer.ContentLayout.Vertical,
-                        content = new List<ICodexWidget>()
-                        {
-                        new CodexText(go.GetProperName()) {
-                            style = CodexTextStyle.Title },
-                        new CodexText() {
-                            stringKey = $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
-                            style = CodexTextStyle.Subtitle },
-                        new CodexDividerLine() {
-                            preferredWidth = -1 }
-                        }
-                    },
-                    new ContentContainer()
-                    {
-                        contentLayout = ContentContainer.ContentLayout.Vertical,
-                        content = new List<ICodexWidget>()
-                        {
-                        new CodexText(desc) {
-                            style = CodexTextStyle.Body }
-                        }
-                    }
-                });
+            entry.icon = first;
+
+            entry.id = id;
+            entry.disabled = false;
+
+            if (!cutVersion)
+                entry.contentMadeAndUsed.Add(new CodexEntry_MadeAndUsed() { tag = id });
+
+            return entry;
         }
     }
 }
