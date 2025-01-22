@@ -31,6 +31,7 @@ using Klei;
 using ProcGen;
 using STRINGS;
 using static SharlesPlants.SharlesPlantsTuning;
+using static STRINGS.CODEX;
 
 namespace SharlesPlants
 {
@@ -212,22 +213,30 @@ namespace SharlesPlants
             Strings.Add($"STRINGS.CREATURES.SPECIES.SEEDS.{seedId.ToUpperInvariant()}.DESC", seedDescription);
         }
 
+        public static void RegisterPlantCodex(string plantId, string name, string subtitle, string body = "")
+        {
+            Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.TITLE", name);
+            Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.SUBTITLE", subtitle);
+            if (body != "")
+                Strings.Add($"STRINGS.CODEX.{plantId.ToUpperInvariant()}.BODY.CONTAINER1", body);
+        }
+
         public static void RegisterSeedRecipe(string seedName, Tag seedIngredient, SimHashes materialIngredient, int sortOrder)
         {
             var ingredients = new ComplexRecipe.RecipeElement[]
             {
-              new ComplexRecipe.RecipeElement(seedIngredient, 1f),
-              new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
+                new ComplexRecipe.RecipeElement(seedIngredient, 1f),
+                new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
             };
             var results = new ComplexRecipe.RecipeElement[]
             {
-              new ComplexRecipe.RecipeElement(seedName, 1f)
+                new ComplexRecipe.RecipeElement(seedName, 1f)
             };
             var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
             new ComplexRecipe(recipeId, ingredients, results)
             {
                 time = 100f,
-                //description = null,
+                description = Strings.Get($"STRINGS.CREATURES.SPECIES.SEEDS.{seedName.ToUpperInvariant()}.DESC"),
                 nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
                 fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },
                 sortOrder = sortOrder,
@@ -238,6 +247,103 @@ namespace SharlesPlants
         {
             if (DebugMode || force)
                 Console.WriteLine($"<<Sharles Plants>> {msg}");
+        }
+
+        [HarmonyPatch(typeof(CodexCache), "CollectEntries")]
+        public class CodexCache_CollectEntries_Patch
+        {
+            public static void Postfix(string folder, List<CodexEntry> __result)
+            {
+                if (folder != string.Empty || !Settings.Instance.BaseSettings.ExtendedDesc)
+                    return;
+
+                string speciesNameTemplate = "STRINGS.CREATURES.SPECIES.{0}.NAME";
+                string speciesDescTemplate = "STRINGS.CREATURES.SPECIES.{0}.DESC";
+
+                CodexEntry temp;
+
+                if ((temp = CreateCodex<ColdLovingPlant>(FrostBlossomConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ColdLovingPlant>(IcyShroomConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WarmLovingPlant>(MyrthRoseConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WarmLovingPlant>(PricklyLotusConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ColdLovingPlant>(RustFernConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WaterPlant>(ShlurpCoralConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<ReactivePlant>(SporeLampConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+                if ((temp = CreateCodex<WaterPlant>(TropicalgaeConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                    speciesDescTemplate, "PLANTS", true)) != null)
+                    __result.Add(temp);
+            }
+        }
+
+        private static CodexEntry CreateCodex<T>(string id, string title, string subtitle, string body,
+            string category, bool cutVersion = false) where T : SharlesPlant
+        {
+            GameObject go = Assets.GetPrefab(id);
+
+            if (go == null)
+                return null;
+
+            List<ContentContainer> containers = new List<ContentContainer>
+            {
+                new ContentContainer(new List<ICodexWidget>()
+                    {
+                        new CodexText() { stringKey = string.Format(title, id.ToUpperInvariant()), style = CodexTextStyle.Title },
+                        new CodexText() { stringKey = string.Format(subtitle, id.ToUpperInvariant()), style = CodexTextStyle.Subtitle },
+                        new CodexDividerLine()
+                    }, ContentContainer.ContentLayout.Vertical)
+            };
+
+            Sprite first = Def.GetUISprite(go).first;
+
+            if (!cutVersion)
+                CodexEntryGenerator.GenerateImageContainers(first, containers);
+
+            List<ICodexWidget> content = new List<ICodexWidget>
+            {
+                new CodexText()
+                {
+                    stringKey = string.Format(body, id.ToUpperInvariant()),
+                    style = CodexTextStyle.Body
+                }
+            };
+
+            var pillDescriptors = go.GetComponent<T>().GetDescriptors(go);
+            if (pillDescriptors.Count > 0)
+            {
+                content.Add(new CodexText(HEADERS.EQUIPMENTEFFECTS, CodexTextStyle.Subtitle));
+                foreach (Descriptor descriptor in pillDescriptors)
+                    content.Add(new CodexText("    " + descriptor.text));
+                content.Add(new CodexSpacer());
+            }
+
+            ContentContainer contentContainer = new ContentContainer(content, ContentContainer.ContentLayout.Vertical);
+            containers.Add(contentContainer);
+
+            CodexEntry entry = new CodexEntry(category, containers, go.GetProperName());
+
+            entry.icon = first;
+
+            entry.id = id;
+            entry.disabled = false;
+
+            if (!cutVersion)
+                entry.contentMadeAndUsed.Add(new CodexEntry_MadeAndUsed() { tag = id });
+
+            return entry;
         }
     }
 }
