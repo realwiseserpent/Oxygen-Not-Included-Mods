@@ -17,7 +17,7 @@ namespace SharlesPlants
     public class SharlesPlantsTuning
     {
         public static bool DebugMode = false;
-        public static string[] SupportedVersions = DlcManager.AVAILABLE_ALL_VERSIONS;
+        public static string[] SupportedVersions = null;
 
         public class BIOME_STRINGS
         {
@@ -44,7 +44,10 @@ namespace SharlesPlants
                 WASTELAND = PREFIX + "Wasteland",
                 ICECAVES = PREFIX + "IceCaves",
                 CARROTQUARRY = PREFIX + "CarrotQuarry",
-                SUGARWOODS = PREFIX + "SugarWoods";
+                SUGARWOODS = PREFIX + "SugarWoods",
+                GARDEN = PREFIX + "Garden",
+                RAPTOR = PREFIX + "Raptor",
+                WETLANDS = PREFIX + "Wetlands";
         }
         public class EARTH_BIOME_STRINGS //Earth mod
         {
@@ -285,6 +288,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.JUNGLE,
                 BIOME_STRINGS.SWAMP,
                 BIOME_STRINGS.WASTELAND,
+                BIOME_STRINGS.GARDEN,
                 "Desert", //SEDIMENTARY desert + TestDesert from RollerSnake
                 BAATOR_BIOME_STRINGS.NESSUS,
                 BAATOR_BIOME_STRINGS.DIS,
@@ -345,6 +349,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.BARREN,
                 BIOME_STRINGS.RADIOACTIVE,
                 BIOME_STRINGS.WASTELAND,
+                BIOME_STRINGS.RAPTOR,
                 "GraphiteCaves",
                 BIOME_STRINGS.CARROTQUARRY,
                 BAATOR_BIOME_STRINGS.SHADOWFEL,
@@ -439,6 +444,8 @@ namespace SharlesPlants
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
                 SimHashes.Brine,
+                SimHashes.PhytoOil,
+                SimHashes.NaturalResin,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
@@ -458,6 +465,8 @@ namespace SharlesPlants
                 BIOME_STRINGS.AQUATIC,
                 BIOME_STRINGS.SWAMP,
                 BIOME_STRINGS.WASTELAND,
+                BIOME_STRINGS.GARDEN,
+                BIOME_STRINGS.WETLANDS,
                 BAATOR_BIOME_STRINGS.MINAUROS,
                 BAATOR_BIOME_STRINGS.AVERNUS,
                 EARTH_BIOME_STRINGS.ASTHENOSPHERE,
@@ -500,6 +509,7 @@ namespace SharlesPlants
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
                 SimHashes.Brine,
+                SimHashes.PhytoOil,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {

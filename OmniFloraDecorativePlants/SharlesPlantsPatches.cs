@@ -237,7 +237,8 @@ namespace SharlesPlants
                 Log("SupermaterialRefineryConfig_ConfigureBuildingTemplate_Patch Postfix");
 
                 RegisterSeedRecipe(PricklyLotusConfig.SeedId, "CactusPlantSeed", SimHashes.Sand, 470);
-                RegisterSeedRecipe(FrostBlossomConfig.SeedId, "ColdWheatSeed", SimHashes.Tungsten, 471);
+                RegisterSeedRecipe(FrostBlossomConfig.SeedId, new Tag[] { "ColdWheatSeed", FernFoodConfig.ID },
+                    SimHashes.Tungsten, 471);
                 RegisterSeedRecipe(IcyShroomConfig.SeedId, "MushroomSeed", SimHashes.Wolframite, 472);
                 RegisterSeedRecipe(MyrthRoseConfig.SeedId, "LeafyPlantSeed", SimHashes.Fertilizer, 473);
                 RegisterSeedRecipe(RustFernConfig.SeedId, "PrickleGrassSeed", SimHashes.Rust, 474);
@@ -275,6 +276,21 @@ namespace SharlesPlants
                 new ComplexRecipe.RecipeElement(seedIngredient, 1f),
                 new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
             };
+            RegisterSeedRecipe(seedName, sortOrder, ingredients);
+        }
+
+        public static void RegisterSeedRecipe(string seedName, Tag[] seedIngredient, SimHashes materialIngredient, int sortOrder)
+        {
+            var ingredients = new ComplexRecipe.RecipeElement[]
+            {
+                new ComplexRecipe.RecipeElement(seedIngredient, 1f),
+                new ComplexRecipe.RecipeElement(materialIngredient.CreateTag(), 1f),
+            };
+            RegisterSeedRecipe(seedName, sortOrder, ingredients);
+        }
+
+        private static void RegisterSeedRecipe(string seedName, int sortOrder, ComplexRecipe.RecipeElement[] ingredients)
+        {
             var results = new ComplexRecipe.RecipeElement[]
             {
                 new ComplexRecipe.RecipeElement(seedName, 1f)
@@ -282,7 +298,7 @@ namespace SharlesPlants
             var recipeId = ComplexRecipeManager.MakeRecipeID(SupermaterialRefineryConfig.ID, ingredients, results);
             new ComplexRecipe(recipeId, ingredients, results)
             {
-                time = 100f,
+                time = 80f,
                 description = Strings.Get($"STRINGS.CREATURES.SPECIES.SEEDS.{seedName.ToUpperInvariant()}.DESC"),
                 nameDisplay = ComplexRecipe.RecipeNameDisplay.Result,
                 fabricators = new List<Tag> { SupermaterialRefineryConfig.ID },

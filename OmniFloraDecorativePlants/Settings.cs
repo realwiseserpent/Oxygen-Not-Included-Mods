@@ -33,36 +33,36 @@ namespace SharlesPlants
         }
 
         [JsonProperty]
-        [Option("Low Decor", category: "Low Decor Settings")]
+        [Option("Low Decor", category: "1. Low Decor Settings")]
         public BasicDecorSettings LowDecor { get; set; }
 
         [JsonProperty]
-        [Option("Standard Decor", category: "Standard Decor Settings")]
+        [Option("Standard Decor", category: "2. Standard Decor Settings")]
         public BasicDecorSettings StandardDecor { get; set; }
 
         [JsonProperty]
-        [Option("Medium Decor", category: "Medium Decor Settings")]
+        [Option("Medium Decor", category: "3. Medium Decor Settings")]
         public BasicDecorSettings MediumDecor { get; set; }
 
         [JsonProperty]
-        [Option("High Decor", category: "High Decor Settings")]
+        [Option("High Decor", category: "4. High Decor Settings")]
         public BasicDecorSettings HighDecor { get; set; }
 
         [JsonProperty]
-        [Option("Amazing Decor", category: "Amazing Decor Settings")]
+        [Option("Amazing Decor", category: "5. Amazing Decor Settings")]
         public BasicDecorSettings AmazingDecor { get; set; }
 
         [JsonProperty]
-        [Option("Additional Settings", category: "Additional Settings")]
+        [Option("Additional Settings", category: "0. Additional Settings")]
         public BasicSettings BaseSettings { get; set; }
 
         public Settings()
         {
             LowDecor = new BasicDecorSettings() { Amount = 10, Radius = 3 };
             StandardDecor = new BasicDecorSettings() { Amount = 20, Radius = 3 };
-            MediumDecor = new BasicDecorSettings() { Amount = 40, Radius = 5 };
-            HighDecor = new BasicDecorSettings() { Amount = 70, Radius = 6 };
-            AmazingDecor = new BasicDecorSettings() { Amount = 100, Radius = 7 };
+            MediumDecor = new BasicDecorSettings() { Amount = 30, Radius = 4 };
+            HighDecor = new BasicDecorSettings() { Amount = 40, Radius = 5 };
+            AmazingDecor = new BasicDecorSettings() { Amount = 50, Radius = 6 };
 
             BaseSettings = new BasicSettings();
         }
@@ -104,21 +104,21 @@ namespace SharlesPlants
         public class BasicSettings
         {
             [JsonProperty]
-            [Option("Seeds spawn", "Do you want to spawn buries seeds?")]
+            [Option("Spawn of buried seeds", "Do you want to spawn buried seeds?")]
             public bool SeedsSpawn { get; set; }
 
             [JsonProperty]
-            [Option("Extended Description", "Do you want to extend plant descriptions?")]
+            [Option("Detailed description (Codex)", "Would you like to get a detailed description of plants?")]
             public bool ExtendedDesc { get; set; }
 
             [JsonProperty]
-            [Option("Spore Lamp Reactive Gases", "Do you want to extend list of Spore Lamp reactive gases?")]
+            [Option("Spore Lamp reactive gases", "Would you like to expand the list of Spore Lamp reactive gases?")]
             public bool ExtendedSporeLampGasList { get; set; }
 
             public BasicSettings()
             {
-                SeedsSpawn = false;
-                ExtendedDesc = false;
+                SeedsSpawn = true;
+                ExtendedDesc = true;
                 ExtendedSporeLampGasList = false;
             }
         }

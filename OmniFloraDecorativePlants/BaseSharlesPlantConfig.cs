@@ -50,7 +50,8 @@ namespace SharlesPlants
 
 			var seed = EntityTemplates.CreateAndRegisterSeedForPlant(
 				plant: plantEntityTemplate,
-				id: seedId,
+                dlcRestrictions: null,
+                id: seedId,
 				name: UI.FormatAsLink(seedName, id),
 				desc: seedDescription,
 				productionType: SeedProducer.ProductionType.Hidden,

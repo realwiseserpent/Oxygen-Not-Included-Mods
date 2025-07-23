@@ -7,7 +7,7 @@ namespace SharlesPlants
     public class ShlurpCoralConfig : IEntityConfig
     {
         public const string Id = "ShlurpCoral";
-        public const string SeedId = Id + "Polyp";
+        public const string SeedId = Id + "Seed";
 
         public static PlantTuning tuning = ShlurpCoralTuning;
 
@@ -27,6 +27,7 @@ namespace SharlesPlants
                 {
                     SimHashes.Water,
                     SimHashes.DirtyWater,
+                    SimHashes.PhytoOil,
                };
 
             string desc = STRINGS.PLANTS.SHLURPCORAL.DESC;

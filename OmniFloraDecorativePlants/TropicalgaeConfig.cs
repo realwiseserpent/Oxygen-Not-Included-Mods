@@ -21,6 +21,7 @@ namespace SharlesPlants
             SimHashes[] preferredElements =
                 {
                     SimHashes.DirtyWater,
+                    SimHashes.PhytoOil,
                 };
             SimHashes[] toleratedElements =
                 {
