@@ -27,7 +27,7 @@ namespace SharlesPlants
                 {
                     SimHashes.Water,
                     SimHashes.DirtyWater,
-                    SimHashes.PhytoOil,
+                    SimHashes.MurkyBrine,
                };
 
             string desc = STRINGS.PLANTS.SHLURPCORAL.DESC;

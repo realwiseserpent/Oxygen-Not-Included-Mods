@@ -47,7 +47,11 @@ namespace SharlesPlants
                 SUGARWOODS = PREFIX + "SugarWoods",
                 GARDEN = PREFIX + "Garden",
                 RAPTOR = PREFIX + "Raptor",
-                WETLANDS = PREFIX + "Wetlands";
+                WETLANDS = PREFIX + "Wetlands",
+                BEACH = PREFIX + "Beach",
+                REEF = PREFIX + "Reef",
+                KELPFOREST = PREFIX + "KelpForest",
+                ABYSS = PREFIX + "Abyss";
         }
         public class EARTH_BIOME_STRINGS //Earth mod
         {
@@ -200,9 +204,9 @@ namespace SharlesPlants
             lethalLow = 193.15f,            // -80C
             warningLow = 233.15f,           // -40C
             transitionLow = 268.15f,        //  -5C
-            transitionHigh = 281.15f,       //   8C
-            warningHigh = 291.15f,          //  18C
-            lethalhigh = 303.15f,           //  30C
+            transitionHigh = 283.15f,       //  10C
+            warningHigh = 293.15f,          //  20C
+            lethalhigh = 308.15f,           //  35C
             defaultTemperature = 283.15f,   //  10C
             juvenileDecor = DecorType.StandardDecor,
             matureDecor = DecorType.MediumDecor,
@@ -256,8 +260,8 @@ namespace SharlesPlants
             density = new MinMax(0.08f, 0.12f),
             lethalLow = 273.15f,            //   0C
             warningLow = 288.15f,           //  15C
-            transitionLow = 295.15f,        //  22C
-            transitionHigh = 309.15f,       //  36C
+            transitionLow = 293.15f,        //  20C
+            transitionHigh = 308.15f,       //  35C
             warningHigh = 328.15f,          //  55C
             lethalhigh = 363.15f,           //  90C
             defaultTemperature = 293.15f,   //  20C
@@ -318,9 +322,9 @@ namespace SharlesPlants
             density = new MinMax(0.13f, 0.20f),
             lethalLow = 223.15f,            // -50C
             warningLow = 258.15f,           // -15C
-            transitionLow = 307.15f,        //  34C
-            transitionHigh = 321.15f,       //  48C
-            warningHigh = 335.15f,          //  62C
+            transitionLow = 308.15f,        //  35C
+            transitionHigh = 323.15f,       //  50C
+            warningHigh = 338.15f,          //  65C
             lethalhigh = 353.15f,           //  80C
             defaultTemperature = 308.15f,   //  35C
             juvenileDecor = DecorType.StandardDecor,
@@ -379,8 +383,8 @@ namespace SharlesPlants
             density = new MinMax(0.18f, 0.28f),
             lethalLow = 263.15f,            // -10C
             warningLow = 278.15f,           //   5C
-            transitionTemp = 301.15f,       //  28C
-            warningHigh = 361.15f,          //  88C
+            transitionTemp = 303.15f,       //  30C
+            warningHigh = 363.15f,          //  90C
             lethalhigh = 403.15f,           // 130C
             defaultTemperature = 298.15f,   //  25C
             juvenileDecor = DecorType.StandardDecor,
@@ -444,8 +448,8 @@ namespace SharlesPlants
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
                 SimHashes.Brine,
+                SimHashes.MurkyBrine,
                 SimHashes.PhytoOil,
-                SimHashes.NaturalResin,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
@@ -467,6 +471,7 @@ namespace SharlesPlants
                 BIOME_STRINGS.WASTELAND,
                 BIOME_STRINGS.GARDEN,
                 BIOME_STRINGS.WETLANDS,
+                BIOME_STRINGS.KELPFOREST,
                 BAATOR_BIOME_STRINGS.MINAUROS,
                 BAATOR_BIOME_STRINGS.AVERNUS,
                 EARTH_BIOME_STRINGS.ASTHENOSPHERE,
@@ -483,6 +488,7 @@ namespace SharlesPlants
             biomes = new HashSet<string>() {
                 BIOME_STRINGS.MARSH,
                 BIOME_STRINGS.AQUATIC,
+                BIOME_STRINGS.KELPFOREST,
                 BAATOR_BIOME_STRINGS.MINAUROS,
                 EARTH_BIOME_STRINGS.OCEAN,
             },
@@ -494,8 +500,8 @@ namespace SharlesPlants
             density = new MinMax(0.18f, 0.28f),
             lethalLow = 253.15f,            // -20C
             warningLow = 288.15f,           //  15C
-            transitionTemp = 305.15f,       //  32C
-            warningHigh = 322.15f,          //  49C
+            transitionTemp = 303.15f,       //  30C
+            warningHigh = 323.15f,          //  50C
             lethalhigh = 348.15f,           //  75C
             defaultTemperature = 303.15f,   //  30C
             juvenileDecor = DecorType.StandardDecor,
@@ -509,7 +515,7 @@ namespace SharlesPlants
                 SimHashes.DirtyWater,
                 SimHashes.SaltWater,
                 SimHashes.Brine,
-                SimHashes.PhytoOil,
+                SimHashes.MurkyBrine,
             },
             biomeTemperatures = new HashSet<Temperatures>()
             {
@@ -524,6 +530,7 @@ namespace SharlesPlants
             {
                 BIOME_STRINGS.OCEAN,
                 BIOME_STRINGS.AQUATIC,
+                BIOME_STRINGS.REEF,
                 BAATOR_BIOME_STRINGS.MINAUROS,
                 BAATOR_BIOME_STRINGS.STYGIA,
                 BAATOR_BIOME_STRINGS.AVERNUS,

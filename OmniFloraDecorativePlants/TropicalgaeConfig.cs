@@ -28,6 +28,7 @@ namespace SharlesPlants
                     SimHashes.Water,
                     SimHashes.SaltWater,
                     SimHashes.Brine,
+                    SimHashes.MurkyBrine
                 };
             string desc = STRINGS.PLANTS.TROPICALGAE.DESC;
 

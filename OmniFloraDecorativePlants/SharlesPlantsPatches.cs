@@ -84,17 +84,17 @@ namespace SharlesPlants
         }
 
         // Waterweed drowning fix
-        [HarmonyPatch(typeof(SeaLettuceConfig), "CreatePrefab")]
-        public static class SeaLettuceConfig_CreatePrefab_Patch
-        {
-            private static void Postfix(GameObject __result)
-            {
-                Log("EntityTemplates_ExtendEntityToBasicPlant_Patch Postfix");
-                var drowningMonitor = __result.GetComponent<DrowningMonitor>();
-                if (drowningMonitor != null)
-                    drowningMonitor.enabled = false;
-            }
-        }
+        //[HarmonyPatch(typeof(SeaLettuceConfig), "CreatePrefab")]
+        //public static class SeaLettuceConfig_CreatePrefab_Patch
+        //{
+        //    private static void Postfix(GameObject __result)
+        //    {
+        //        Log("EntityTemplates_ExtendEntityToBasicPlant_Patch Postfix");
+        //        var drowningMonitor = __result.GetComponent<DrowningMonitor>();
+        //        if (drowningMonitor != null)
+        //            drowningMonitor.enabled = false;
+        //    }
+        //}
 
         // Register plants and seeds to the game
         [HarmonyPatch(typeof(EntityConfigManager), "LoadGeneratedEntities")]
@@ -243,7 +243,7 @@ namespace SharlesPlants
                 RegisterSeedRecipe(MyrthRoseConfig.SeedId, "LeafyPlantSeed", SimHashes.Fertilizer, 473);
                 RegisterSeedRecipe(RustFernConfig.SeedId, "PrickleGrassSeed", SimHashes.Rust, 474);
                 RegisterSeedRecipe(SporeLampConfig.SeedId, "MushroomSeed", SimHashes.Carbon, 475);
-                RegisterSeedRecipe(TropicalgaeConfig.SeedId, "SeaLettuceSeed", SimHashes.Algae, 476);
+                RegisterSeedRecipe(TropicalgaeConfig.SeedId, "BasicFabricMaterialPlantSeed", SimHashes.Algae, 476);
                 RegisterSeedRecipe(ShlurpCoralConfig.SeedId, "SeaLettuceSeed", SimHashes.Salt, 477);
             }
         }
@@ -340,13 +340,13 @@ namespace SharlesPlants
                 if ((temp = CreateCodex<ColdLovingPlant>(RustFernConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
                     speciesDescTemplate, "PLANTS", true)) != null)
                     __result.Add(temp);
-                if ((temp = CreateCodex<WaterPlant>(ShlurpCoralConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                if ((temp = CreateCodex<WaterPlant>(ShlurpCoralConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.FILAMENTPLANT.SUBTITLE",
                     speciesDescTemplate, "PLANTS", true)) != null)
                     __result.Add(temp);
                 if ((temp = CreateCodex<ReactivePlant>(SporeLampConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
                     speciesDescTemplate, "PLANTS", true)) != null)
                     __result.Add(temp);
-                if ((temp = CreateCodex<WaterPlant>(TropicalgaeConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.MIRTHLEAF.SUBTITLE",
+                if ((temp = CreateCodex<WaterPlant>(TropicalgaeConfig.Id, speciesNameTemplate, $"STRINGS.CODEX.FILAMENTPLANT.SUBTITLE",
                     speciesDescTemplate, "PLANTS", true)) != null)
                     __result.Add(temp);
             }
